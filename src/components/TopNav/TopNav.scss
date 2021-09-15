@@ -1,0 +1,74 @@
+@import "../../variable.scss";
+
+.top-nav {
+  .top-nav__wrap {
+    position: relative;
+    padding: 0.8rem 1.6rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    z-index: $topnav-zindex;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+
+    .img__wrap {
+      display: flex;
+      align-items: center;
+    }
+    .branch {
+      width: 4rem;
+      img {
+        width: 100%;
+      }
+    }
+
+    .top-nav-user {
+      display: flex;
+      align-items: center;
+
+      .user-ava {
+        width: 3rem;
+        .user-ava-img {
+          width: 100%;
+
+          img {
+            width: 100%;
+          }
+        }
+      }
+
+      .user-name {
+        margin-left: 0.5rem;
+        font-weight: 600;
+        font-size: 1.5rem;
+      }
+    }
+
+    .top-nav-btn__wrap {
+      display: flex;
+
+      .btn-item {
+        width: 4rem;
+        height: 4rem;
+        border-radius: 50%;
+
+        cursor: pointer;
+        vertical-align: middle;
+        text-align: center;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+          filter: brightness(0.95);
+        }
+      }
+
+      .btn-item + .btn-item {
+        margin-left: 0.8rem;
+      }
+    }
+  }
+}

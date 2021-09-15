@@ -1,0 +1,11 @@
+.home-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.up-post,
+.post-list {
+  width: 50rem;
+  max-width: 100%;
+}
