@@ -2,7 +2,7 @@
   padding: 1.2rem 0rem 0;
   margin-bottom: 5rem;
   border-radius: 1rem;
-  border: 1px solid;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
 
   .post-header {
@@ -59,10 +59,6 @@
         line-height: 3.6rem;
         opacity: 0.7;
       }
-
-      &:hover {
-        background-color: #f2f2f2;
-      }
     }
   }
   // end of .post-header
@@ -78,7 +74,6 @@
 
     .post-content-media {
       width: 100%;
-      background-color: aqua;
 
       .media {
         display: block;
@@ -91,6 +86,7 @@
 
   .post-footer {
     padding: 0 1.6rem;
+    user-select: none;
 
     .post-footer-heading {
       display: flex;
@@ -106,6 +102,120 @@
         }
       }
     }
+    // end of .post=footer-heading
+
+    .post-footer-btn__wrap {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.4rem 0;
+
+      font-size: 1.5rem;
+      font-weight: 600;
+      line-height: 2rem;
+
+      border: 1px solid;
+      border-left: none;
+      border-right: none;
+
+      & i,
+      & span {
+        background-color: transparent;
+      }
+
+      .btn__wrap-item {
+        padding: 0.6rem 0;
+        flex: 1;
+        cursor: pointer;
+        border-radius: 0.4rem;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        i {
+          margin-right: 0.5rem;
+        }
+      }
+    }
+    // end of post-footer-btn__wrap
+    .post-footer-cmt__wrap {
+      display: flex;
+      align-items: center;
+      padding: 0.8rem 0;
+
+      .user-cmt {
+        width: 3.2rem;
+        height: 3.2rem;
+        margin-right: 0.5rem;
+
+        img {
+          width: 100%;
+        }
+      }
+
+      .post-cmt-box {
+        flex: 1;
+        display: flex;
+        flex-wrap: wrap;
+        border-radius: 1.8rem;
+        overflow: hidden;
+
+        .post-cmt-input {
+          flex: 1;
+          width: 100%;
+          background-color: aliceblue !important;
+
+          display: flex;
+
+          [contentEditable] {
+            // width: 100%;
+            height: 100%;
+            background-color: antiquewhite;
+            display: inline-block;
+
+            outline: none;
+            padding: 0.8rem 1.2rem;
+
+            &:empty::after {
+              content: attr(data-text);
+              color: gray;
+            }
+          }
+        }
+        // end of .post-cmt-input
+
+        .other-cmt-way {
+          padding: 0;
+          list-style: none;
+          padding-right: 1rem;
+
+          display: flex;
+          align-items: center;
+          justify-content: end;
+
+          li {
+            width: 1.6rem;
+            margin: 0.6rem;
+            border-radius: 50%;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            cursor: pointer;
+
+            i {
+              display: block;
+              font-size: 1.6rem;
+              opacity: 0.7;
+            }
+          }
+        }
+        // end of .other-cmt-way
+      }
+      // end of .post-cmt-box
+    }
+    // end of .post-footer-cmt__wrap
   }
   // end of .post-footer
 }

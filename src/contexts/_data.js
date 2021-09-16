@@ -14,6 +14,7 @@ export const _post = [
       ava: "./img/petsla.png",
       username: "Leo Asher",
     },
+    isReacted: true,
     reactions: {
       like: 1,
       heart: 4,

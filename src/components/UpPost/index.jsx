@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useRef } from "react";
 import { ThemeContext } from "../../contexts/ThemeContextProvider";
 import "./UpPost.scss";
 
@@ -17,14 +17,8 @@ const UpPost = () => {
 
   const handleOnMouseLeave = (e) => {
     const UpPostFooterItemEle = e.target;
-    UpPostFooterItemEle.style.backgroundColor = "inherit";
+    UpPostFooterItemEle.style.backgroundColor = "unset";
   };
-
-  useEffect(() => {
-    UpPostHeader.current.style.borderBottomColor = isLightTheme
-      ? style.bgColorGray
-      : style.upPostInputBox;
-  }, [isLightTheme]);
 
   return (
     <div
@@ -46,6 +40,10 @@ const UpPost = () => {
             <span>What's on your mind, bro?</span>
           </div>
         </div>
+        <div
+          className="up-post-seperate"
+          style={{ backgroundColor: style.borderColor }}
+        ></div>
         <div className="up-post__footer">
           <div
             className="up-post__footer-item"
@@ -53,7 +51,7 @@ const UpPost = () => {
             onMouseLeave={(e) => handleOnMouseLeave(e)}
           >
             <div className="up-post__footer-item__img"></div>
-            <div className="up-post__footer-item__text">Photo/Video</div>
+            <span className="up-post__footer-item__text">Photo/Video</span>
           </div>
         </div>
       </div>

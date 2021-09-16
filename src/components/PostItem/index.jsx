@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import PropTypes from "prop-types";
 import { ThemeContext } from "../../contexts/ThemeContextProvider";
 import "./PostItem.scss";
@@ -11,6 +11,10 @@ const PostItem = (props) => {
   const { isLightTheme, lightTheme, darkTheme } = theme;
   const style = isLightTheme ? lightTheme : darkTheme;
 
+  const postCmtBox = useRef(null);
+  const postCmtInputRef = useRef(null);
+  const otherCmtWayRef = useRef(null);
+
   const getQuantityOfReactions = () => {
     let total = 0;
     for (let key in post.reactions) {
@@ -19,13 +23,41 @@ const PostItem = (props) => {
     return total;
   };
 
+  const handleReactBtnOnMouseEnter = (e) => {
+    const ReactBtnEle = e.target;
+    ReactBtnEle.style.backgroundColor = style.bgColorGray;
+  };
+
+  const handleReactBtnOnMouseLeave = (e) => {
+    const ReactBtnEle = e.target;
+    ReactBtnEle.style.backgroundColor = "transparent";
+  };
+
+  const handleReactionBtnOnMouseDown = (e) => {};
+
+  const handleReactionBtnOnMouseUp = (e) => {};
+
+  const handlePostCmtInputOnKeyUp = (e) => {
+    // console.log(e.target);
+    if (
+      postCmtInputRef.current.offsetWidth >
+      postCmtBox.current.offsetWidth - otherCmtWayRef.current.offsetWidth
+    ) { 
+      postCmtInputRef.current.style.wordBreak = "break-all";
+      console.log("wrap");
+    } else {
+      postCmtBox.current.style.display = "flex"; 
+      console.log("no wrap");
+    } 
+  };
+
   return (
     <div
       className="post-item"
       style={{
         backgroundColor: style.topnavBgColor,
         color: style.color,
-        borderColor: style.bgColorGray,
+        // borderColor: style.bgColorGray,
       }}
     >
       <div className="post-header">
@@ -38,14 +70,14 @@ const PostItem = (props) => {
             <a href="/" className="author-name">
               {post.author.name}
             </a>
-            <a href className="post-published-time">
+            <a href="/" className="post-published-time">
               {post.publishedTime}
             </a>
           </div>
         </div>
 
         <div className="post-header-3dots">
-          <i class="fas fa-ellipsis-h"></i>
+          <i className="fas fa-ellipsis-h"></i>
         </div>
       </div>
 
@@ -67,6 +99,87 @@ const PostItem = (props) => {
             <span>Comments</span>
           </div>
         </div>
+        <div
+          className="post-footer-btn__wrap"
+          style={{ color: style.colorGray, borderColor: style.borderColor }}
+        >
+          <div
+            className="like-btn__wrap btn__wrap-item"
+            onMouseEnter={(e) => handleReactBtnOnMouseEnter(e)}
+            onMouseLeave={(e) => handleReactBtnOnMouseLeave(e)}
+            onMouseDown={(e) => handleReactionBtnOnMouseDown(e)}
+            onMouseUp={(e) => handleReactionBtnOnMouseUp(e)}
+          >
+            {post.isReacted ? (
+              <>
+                <i
+                  style={{ color: "#2078F4" }}
+                  className="fas fa-thumbs-up"
+                ></i>
+                <span style={{ color: "#2078F4" }}>Like</span>
+              </>
+            ) : (
+              <>
+                <i className="far fa-thumbs-up"></i>
+                <span>Like</span>
+              </>
+            )}
+          </div>
+
+          <div
+            className="comment-btn__wrap btn__wrap-item"
+            onMouseEnter={(e) => handleReactBtnOnMouseEnter(e)}
+            onMouseLeave={(e) => handleReactBtnOnMouseLeave(e)}
+          >
+            <i className="far fa-comment-alt"></i>
+            <span>Comment</span>
+          </div>
+
+          <div
+            className="comment-btn__wrap btn__wrap-item"
+            onMouseEnter={(e) => handleReactBtnOnMouseEnter(e)}
+            onMouseLeave={(e) => handleReactBtnOnMouseLeave(e)}
+          >
+            <i className="fas fa-share"></i>
+            <span>Share</span>
+          </div>
+        </div>
+
+        <div className="post-footer-cmt__wrap">
+          <label htmlFor="post-cmt-input" className="user-cmt">
+            <img src={post.user.ava} alt="" />
+          </label>
+
+          <div className="post-cmt-box" ref={postCmtBox} action="">
+            <div
+              className="post-cmt-input"
+              type="text"
+              id="post-cmt-input"
+              style={{ backgroundColor: style.bgColorGray }}
+              onKeyUp={(e) => handlePostCmtInputOnKeyUp(e)}
+            >
+              <p
+                ref={postCmtInputRef}
+                contentEditable="true"
+                data-text="Write a public comment..."
+                className="cmt-text"
+              ></p>
+            </div>
+
+            <ul
+              ref={otherCmtWayRef}
+              className="other-cmt-way"
+              style={{ backgroundColor: style.bgColorGray }}
+            >
+              <li className="other-cmt-way-item">
+                <i className="bi bi-camera"></i>
+              </li>
+              <li className="other-cmt-way-item">
+                <i className="bi bi-camera"></i>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -75,42 +188,3 @@ const PostItem = (props) => {
 PostItem.propTypes = {};
 
 export default PostItem;
-/*
-  {
-    author: {
-      ava: "./img/petsla.png",
-      name: "Leo Asher",
-    },
-    publishedTime: "21h",
-    content: {
-      text: "Bấm vào link https://www.facebook.com/petsla.vn để nhận quà nè <3",
-      media: "./img/D21.jpg",
-    },
-    user: {
-      ava: "./img/petsla.png",
-      username: "Leo Asher",
-    },
-    reactions: {
-      like: 1,
-      heart: 4,
-      care: 1,
-      laugh: 1,
-      wow: 1,
-      sad: 1,
-      angry: 1,
-    },
-    comments: [
-      {
-        viewer: {
-          ava: "./img/petsla.png",
-          username: "Leo Asher",
-        },
-        commentContent:
-          "Bấm vào link https://www.facebook.com/petsla.vn để nhận quà nè <3",
-      },
-    ],
-  },
-];
-
-
-*/

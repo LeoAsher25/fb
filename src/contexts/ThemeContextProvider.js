@@ -12,6 +12,7 @@ const ThemeContextProvider = (props) => {
       upPostInputBox: "#f2f2f2",
       colorGray: "#666",
       color: "#050505",
+      borderColor: "#d0d0d0",
     },
     darkTheme: {
       topnavBgColor: "#242424",
@@ -20,6 +21,7 @@ const ThemeContextProvider = (props) => {
       upPostInputBox: "#3a3a3a",
       colorGray: "#bbb",
       color: "#e6e6e6",
+      borderColor: "#404040",
     },
   });
 
