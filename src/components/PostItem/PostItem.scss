@@ -1,3 +1,5 @@
+@import "../../variable";
+
 .post-item {
   padding: 1.2rem 0rem 0;
   margin-bottom: 5rem;
@@ -54,6 +56,12 @@
 
       text-align: center;
       cursor: pointer;
+      position: relative;
+
+      &:hover .bg {
+        border-radius: 50%;
+        display: block;
+      }
 
       i {
         line-height: 3.6rem;
@@ -90,13 +98,28 @@
 
     .post-footer-heading {
       display: flex;
+      width: 100%;
+
       justify-content: space-between;
+
       padding: 1rem 0;
+      position: relative;
 
       font-size: 1.5rem;
       opacity: 0.8;
 
       .quantity-react {
+        display: flex;
+        flex: 1;
+
+        &.quantity-of-reactions {
+          justify-content: flex-start;
+        }
+
+        &.quantity-of-comments {
+          justify-content: flex-end;
+        }
+
         span:first-child {
           margin-right: 0.5rem;
         }
@@ -122,20 +145,99 @@
         background-color: transparent;
       }
 
+      input[name="themeCheckbox"]:checked ~ .btn__wrap-item {
+        .btn__sub-wrap-item {
+          i {
+            filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(171deg)
+              brightness(100%) contrast(100%);
+          }
+        }
+      }
       .btn__wrap-item {
-        padding: 0.6rem 0;
         flex: 1;
         cursor: pointer;
         border-radius: 0.4rem;
 
+        position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
 
-        i {
-          margin-right: 0.5rem;
+        &:hover {
+          .bg {
+            display: block;
+            border-radius: 0.3rem;
+          }
+        }
+
+        .btn__sub-wrap-item {
+          position: relative;
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+
+          padding: 0.6rem 0;
+          width: 100%;
+          height: 100%;
+
+          i {
+            margin-right: 0.5rem;
+            position: relative;
+
+            display: inline-block;
+            width: 1.8rem;
+            height: 1.8rem;
+
+            background-size: auto;
+            background-repeat: no-repeat;
+
+            opacity: 0.7;
+          }
+        }
+
+        &.like-btn__wrap {
+          .btn__sub-wrap-item {
+            i {
+              background-position: 0px -218px;
+              background-image: url("https://static.xx.fbcdn.net/rsrc.php/v3/yi/r/RQEYh0kBLZU.png");
+            }
+          }
+
+          input[id="is-reacted-btn"]:checked ~ .btn__sub-wrap-item {
+            i {
+              opacity: 1;
+              background-position: 0px -199px;
+              filter: invert(38%) sepia(65%) saturate(1863%) hue-rotate(202deg)
+                brightness(104%) contrast(102%);
+            }
+
+            span {
+              color: $blue-color;
+            }
+          }
+        }
+
+        &.comment-btn__wrap {
+          .btn__sub-wrap-item {
+            i {
+              background-position: 0px -180px;
+              background-image: url("https://static.xx.fbcdn.net/rsrc.php/v3/yi/r/RQEYh0kBLZU.png");
+            }
+          }
+        }
+
+        &.share-btn__wrap {
+          .btn__sub-wrap-item {
+            i {
+              background-position: 0 -237px;
+              background-image: url("https://static.xx.fbcdn.net/rsrc.php/v3/yi/r/RQEYh0kBLZU.png");
+            }
+          }
         }
       }
+      // end of .btn__wrap-item
     }
     // end of post-footer-btn__wrap
     .post-footer-cmt__wrap {
@@ -164,7 +266,6 @@
           flex: 1;
           width: 100%;
           background-color: aliceblue !important;
-
           display: flex;
 
           [contentEditable] {

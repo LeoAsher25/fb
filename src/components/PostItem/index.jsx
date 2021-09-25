@@ -1,10 +1,10 @@
-import React, { useContext, useRef } from "react";
-import PropTypes from "prop-types";
+import React, { useContext, useEffect, useRef } from "react";
+// import PropTypes from "prop-types";
 import { ThemeContext } from "../../contexts/ThemeContextProvider";
 import "./PostItem.scss";
 
 const PostItem = (props) => {
-  const { post } = props;
+  const { post, handleUpdatePost } = props;
 
   // get theme context
   const { theme } = useContext(ThemeContext);
@@ -23,33 +23,33 @@ const PostItem = (props) => {
     return total;
   };
 
-  const handleReactBtnOnMouseEnter = (e) => {
-    const ReactBtnEle = e.target;
-    ReactBtnEle.style.backgroundColor = style.bgColorGray;
-  };
-
-  const handleReactBtnOnMouseLeave = (e) => {
-    const ReactBtnEle = e.target;
-    ReactBtnEle.style.backgroundColor = "transparent";
-  };
-
-  const handleReactionBtnOnMouseDown = (e) => {};
-
-  const handleReactionBtnOnMouseUp = (e) => {};
-
-  const handlePostCmtInputOnKeyUp = (e) => {
-    // console.log(e.target);
+  const handlePostCmtInputOnKeyUp = () => {
     if (
       postCmtInputRef.current.offsetWidth >
       postCmtBox.current.offsetWidth - otherCmtWayRef.current.offsetWidth
-    ) { 
+    ) {
       postCmtInputRef.current.style.wordBreak = "break-all";
-      console.log("wrap");
     } else {
-      postCmtBox.current.style.display = "flex"; 
-      console.log("no wrap");
-    } 
+      postCmtBox.current.style.display = "flex";
+    }
   };
+
+  const handleLikeBtnClick = () => {
+    // const tmpPost = { ...post };
+    // tmpPost.isReacted = !tmpPost.isReacted;
+    handleUpdatePost(post);
+  };
+
+  const checkboxReactRef = useRef(null);
+  const themeCheckboxRef = useRef(null);
+
+  useEffect(() => {
+    themeCheckboxRef.current.checked = !isLightTheme;
+  }, [isLightTheme]);
+
+  useEffect(() => {
+    checkboxReactRef.current.checked = post.isReacted;
+  }, [post.isReacted]);
 
   return (
     <div
@@ -57,7 +57,6 @@ const PostItem = (props) => {
       style={{
         backgroundColor: style.topnavBgColor,
         color: style.color,
-        // borderColor: style.bgColorGray,
       }}
     >
       <div className="post-header">
@@ -77,6 +76,10 @@ const PostItem = (props) => {
         </div>
 
         <div className="post-header-3dots">
+          <div
+            className="bg"
+            style={{ backgroundColor: style.upPostInputBox }}
+          ></div>
           <i className="fas fa-ellipsis-h"></i>
         </div>
       </div>
@@ -90,10 +93,14 @@ const PostItem = (props) => {
 
       <div className="post-footer">
         <div className="post-footer-heading">
-          <div className="quantity-react quantity-of-reactions">
-            <span>{getQuantityOfReactions()}</span>
-            <span>Like</span>
-          </div>
+          {getQuantityOfReactions() != 0 ? (
+            <div className="quantity-react quantity-of-reactions">
+              <span>{getQuantityOfReactions()}</span>
+              <span>Like</span>
+            </div>
+          ) : (
+            ""
+          )}
           <div className="quantity-react quantity-of-comments">
             <span>{post.comments.length}</span>
             <span>Comments</span>
@@ -103,45 +110,56 @@ const PostItem = (props) => {
           className="post-footer-btn__wrap"
           style={{ color: style.colorGray, borderColor: style.borderColor }}
         >
-          <div
-            className="like-btn__wrap btn__wrap-item"
-            onMouseEnter={(e) => handleReactBtnOnMouseEnter(e)}
-            onMouseLeave={(e) => handleReactBtnOnMouseLeave(e)}
-            onMouseDown={(e) => handleReactionBtnOnMouseDown(e)}
-            onMouseUp={(e) => handleReactionBtnOnMouseUp(e)}
-          >
-            {post.isReacted ? (
-              <>
-                <i
-                  style={{ color: "#2078F4" }}
-                  className="fas fa-thumbs-up"
-                ></i>
-                <span style={{ color: "#2078F4" }}>Like</span>
-              </>
-            ) : (
-              <>
-                <i className="far fa-thumbs-up"></i>
-                <span>Like</span>
-              </>
-            )}
+          <input
+            ref={themeCheckboxRef}
+            type="checkbox"
+            name="themeCheckbox"
+            id="theme-checkbox"
+            hidden
+          />
+          <div className="like-btn__wrap btn__wrap-item">
+            <div
+              className="bg"
+              style={{ backgroundColor: style.upPostInputBox }}
+            ></div>
+            <input
+              hidden
+              ref={checkboxReactRef}
+              type="checkbox"
+              name="isReacted"
+              id="is-reacted-btn"
+            />
+
+            <label
+              // htmlFor="is-reacted-btn"
+              className="btn__sub-wrap-item"
+              onClick={() => handleLikeBtnClick()}
+            >
+              <i></i>
+              <span>Like</span>
+            </label>
           </div>
 
-          <div
-            className="comment-btn__wrap btn__wrap-item"
-            onMouseEnter={(e) => handleReactBtnOnMouseEnter(e)}
-            onMouseLeave={(e) => handleReactBtnOnMouseLeave(e)}
-          >
-            <i className="far fa-comment-alt"></i>
-            <span>Comment</span>
+          <div className="comment-btn__wrap btn__wrap-item">
+            <div
+              className="bg"
+              style={{ backgroundColor: style.upPostInputBox }}
+            ></div>
+            <div className="btn__sub-wrap-item">
+              <i></i>
+              <span>Comment</span>
+            </div>
           </div>
 
-          <div
-            className="comment-btn__wrap btn__wrap-item"
-            onMouseEnter={(e) => handleReactBtnOnMouseEnter(e)}
-            onMouseLeave={(e) => handleReactBtnOnMouseLeave(e)}
-          >
-            <i className="fas fa-share"></i>
-            <span>Share</span>
+          <div className="share-btn__wrap btn__wrap-item">
+            <div
+              className="bg"
+              style={{ backgroundColor: style.upPostInputBox }}
+            ></div>
+            <div className="btn__sub-wrap-item">
+              <i></i>
+              <span>Share</span>
+            </div>
           </div>
         </div>
 

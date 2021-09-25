@@ -1,0 +1,114 @@
+.search-history-item {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  overflow: hidden;
+  padding: 0.8rem;
+
+  .search-history-item-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    height: 100%;
+    width: 100%;
+    border-radius: 0.8rem;
+
+    display: none;
+  }
+
+  &:hover .search-history-item-bg {
+    display: block;
+  }
+
+  .search-history-item-link {
+    position: relative;
+
+    display: flex;
+    width: 100%;
+    align-items: center;
+
+    .search-history-ava {
+      width: 3.6rem;
+      min-width: 3.6rem;
+      height: 3.6rem;
+      border-radius: 50%;
+
+      overflow: hidden;
+      margin-right: 0.6rem;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+
+      .search-history__img {
+        height: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        i {
+          display: inline-block;
+          font-size: 2rem;
+
+          opacity: 0.6;
+        }
+      }
+    }
+    // end of .search-history-ava
+
+    .search-history-item-name {
+      padding: 0 0.6rem;
+
+      display: block;
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+
+      span {
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  .search-history-item-delete {
+    position: relative;
+    width: 3rem;
+    min-width: 3rem;
+    height: 3rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    .bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      width: 3rem;
+      height: 3rem;
+      background-color: rgba(0, 0, 0, 0.08);
+      border-radius: 50%;
+
+      display: none;
+    }
+
+    &:hover .bg {
+      display: block;
+    }
+
+    i {
+      font-size: 2.2rem;
+      line-height: 2.2rem;
+      opacity: 0.8;
+    }
+  } // end of .search-history-item-delete
+}

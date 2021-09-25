@@ -1,0 +1,203 @@
+@import "../../variable";
+
+.up-post-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  z-index: $zindex-upPostModal;
+
+  width: 50rem;
+  max-width: 90vw;
+  border: 1px solid;
+  border-radius: 1rem;
+
+  .up-post-modal__wrap {
+    .modal__header {
+      position: relative;
+      text-align: center;
+      padding: 1.2rem 1.6rem;
+
+      border-bottom: 1px solid;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      .modal-title {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+
+        // margin-top: 0.4rem;
+        span {
+          font-size: 2rem;
+          font-weight: 700;
+          line-height: 2.4rem;
+        }
+      }
+
+      .modal-close {
+        // position: absolute;
+        position: relative;
+        right: 0;
+
+        width: 3.6rem;
+        height: 3.6rem;
+        cursor: pointer;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+
+        // background-color: aqua;
+
+        &:hover {
+          filter: brightness(0.96);
+        }
+
+        i {
+          opacity: 0.6;
+          position: relative;
+        }
+      }
+    }
+    // end of .modal__header
+
+    .modal__body {
+      padding: 1.6rem 1.6rem;
+      .modal-user {
+        position: relative;
+        width: 100%;
+
+        display: flex;
+        align-items: center;
+
+        .user-link {
+          position: relative;
+          display: inline-block;
+          padding: 0rem;
+
+          border-radius: 0.8rem;
+
+          .user-content {
+            position: relative;
+
+            .user-img {
+              display: flex;
+
+              img {
+                width: 4rem;
+                height: 4rem;
+                border-radius: 50%;
+              }
+            }
+          } // end of .user-content
+        } //end of .user-link
+
+        .user-desc {
+          margin-left: 0.9rem;
+          .user-name {
+            width: 100%;
+            line-height: 1.5rem;
+
+            span {
+              font-size: 1.5rem;
+              font-weight: 600;
+              line-height: 1.5rem;
+            }
+          }
+        }
+      } // end of .modal-user
+
+      .modal-content {
+      } // end of modal-content
+
+      .type-of-upping {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        margin: 1.6rem 0;
+        padding: 0.8rem;
+        border: 1px solid;
+        border-radius: 0.8rem;
+
+        .title {
+          padding: 0 0.8rem;
+          font-size: 1.5rem;
+          font-weight: 600;
+          line-height: 2rem;
+        }
+
+        .type-list {
+          display: flex;
+          position: relative;
+
+          .type-item {
+            width: 3.6rem;
+            height: 3.6rem;
+            position: relative;
+            margin: 0 0.2rem;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            cursor: pointer;
+
+            &:hover .bg {
+              display: inline-block;
+              border-radius: 50%;
+            }
+
+            .type-item__wrap {
+              position: relative;
+
+              .type-item-img {
+                position: relative;
+                width: 2.4rem;
+                height: 2.4rem;
+
+                background-repeat: no-repeat;
+                background-size: auto;
+              }
+            }
+
+            .type-item-title {
+              opacity: 0.1;
+              display: none;
+            }
+
+            &:last-child {
+              .type-item-img {
+                margin-top: -0.1rem;
+                width: 100%;
+                height: 100%;
+
+                opacity: 0.8;
+              }
+            }
+          } // end of .type-item
+        } // end of .type-list
+      } // end of type-of-upping
+      .post-btn {
+        width: 100%;
+        padding: 0.8rem;
+        text-align: center;
+        border-radius: 0.8rem;
+
+        cursor: pointer;
+        font-size: 1.5rem;
+        font-weight: 600;
+
+        cursor: no-drop;
+        background-color: $blue-color;
+
+        opacity: 0.5;
+        filter: grayscale(1);
+      }
+    } // end of .modal__body
+  } // end of .up-post-modal__wrap
+} // end of .up-post-modal

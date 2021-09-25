@@ -1,5 +1,6 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { ThemeContext } from "../../contexts/ThemeContextProvider";
+import UpPostModal from "../UpPostModal";
 import "./UpPost.scss";
 
 const UpPost = () => {
@@ -10,21 +11,21 @@ const UpPost = () => {
 
   const UpPostHeader = useRef(null);
 
-  const handleOnMouseEnter = (e) => {
-    const UpPostFooterItemEle = e.target;
-    UpPostFooterItemEle.style.backgroundColor = style.bgColorGray;
-  };
-
-  const handleOnMouseLeave = (e) => {
-    const UpPostFooterItemEle = e.target;
-    UpPostFooterItemEle.style.backgroundColor = "unset";
-  };
+  const [upPostModalIsOpen, setUpPostModalIsOpen] = useState(false);
 
   return (
     <div
       className="up-post"
       style={{ backgroundColor: style.topnavBgColor, color: style.colorGray }}
     >
+      {upPostModalIsOpen ? (
+        <>
+          <div className="overlay"></div>
+          <UpPostModal setUpPostModalIsOpen={setUpPostModalIsOpen} />
+        </>
+      ) : (
+        ""
+      )}
       <div className="up-post__wrap">
         <div className="up-post__header" ref={UpPostHeader}>
           <a href="/" className="ava">
@@ -36,6 +37,7 @@ const UpPost = () => {
             style={{
               backgroundColor: style.upPostInputBox,
             }}
+            onClick={() => setUpPostModalIsOpen(true)}
           >
             <span>What's on your mind, bro?</span>
           </div>
@@ -45,11 +47,29 @@ const UpPost = () => {
           style={{ backgroundColor: style.borderColor }}
         ></div>
         <div className="up-post__footer">
-          <div
-            className="up-post__footer-item"
-            onMouseEnter={(e) => handleOnMouseEnter(e)}
-            onMouseLeave={(e) => handleOnMouseLeave(e)}
-          >
+          <div className="up-post__footer-item">
+            <div
+              className="bg"
+              style={{ backgroundColor: style.upPostInputBox }}
+            ></div>
+            <div className="up-post__footer-item__img"></div>
+            <span className="up-post__footer-item__text">Photo/Video</span>
+          </div>
+
+          <div className="up-post__footer-item">
+            <div
+              className="bg"
+              style={{ backgroundColor: style.upPostInputBox }}
+            ></div>
+            <div className="up-post__footer-item__img"></div>
+            <span className="up-post__footer-item__text">Photo/Video</span>
+          </div>
+
+          <div className="up-post__footer-item">
+            <div
+              className="bg"
+              style={{ backgroundColor: style.upPostInputBox }}
+            ></div>
             <div className="up-post__footer-item__img"></div>
             <span className="up-post__footer-item__text">Photo/Video</span>
           </div>
