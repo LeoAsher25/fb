@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef, useEffect, useState } from "react";
 import { ThemeContext } from "../../contexts/ThemeContextProvider";
 import SideBarItem from "../SideBarItem";
 import { Link } from "react-router-dom";
@@ -52,6 +52,87 @@ const UpPostModal = (props) => {
     },
   ];
 
+  //useState
+  const [profileImg, setProfileImg] = useState("");
+  const [previewIsOpen, setPreviewIsOpen] = useState(false);
+
+  //declear useRef
+  const textContentRef = useRef(null);
+  const textInputRef = useRef(null);
+
+  const postBtnRef = useRef(null);
+  const themeCheckboxRef = useRef(null);
+  const uploadImgWrapRef = useRef(null);
+
+  const typeListRef = useRef([]);
+
+  // handle when input text
+  const textInputOnInput = () => {
+    if (textInputRef.current.textContent.trim() !== "") {
+      postBtnRef.current.classList.add("active");
+    } else {
+      postBtnRef.current.classList.remove("active");
+    }
+
+    if (previewIsOpen) {
+      uploadImgWrapRef.current.style.display = "block";
+      textContentRef.current.style.minHeight = "3rem";
+      textInputRef.current.classList.add("active");
+    } else {
+      if (textInputRef.current.offsetHeight <= 40) {
+        textInputRef.current.classList.remove("active");
+      }
+      if (textInputRef.current.offsetHeight > 56) {
+        textInputRef.current.classList.add("active");
+      }
+    }
+  };
+
+  // handle when upload image
+  const handleUploadImg = (e) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState == 2) {
+        setProfileImg(reader.result);
+      }
+    };
+
+    reader.readAsDataURL(e.target.files[0]);
+  };
+
+  // handle when close preview
+  const handlePreviewCloseOnClick = () => {
+    setProfileImg("");
+    setPreviewIsOpen(false);
+
+    textInputRef.current.classList.remove("active");
+    uploadImgWrapRef.current.style.display = "none";
+    textContentRef.current.style.minHeight = "14rem";
+  };
+
+  // handle check input checkbox themeCheckbox
+  useEffect(() => {
+    themeCheckboxRef.current.checked = !isLightTheme;
+  }, [isLightTheme]);
+
+  // hanlde when
+  useEffect(() => {
+    if (profileImg.trim() !== "") {
+      uploadImgWrapRef.current.classList.add("active");
+    } else {
+      uploadImgWrapRef.current.classList.remove("active");
+    }
+  }, [profileImg]);
+
+  useEffect(() => {
+    typeListRef.current[0].onclick = () => {
+      setPreviewIsOpen(true);
+      textInputRef.current.classList.add("active");
+      uploadImgWrapRef.current.style.display = "block";
+      textContentRef.current.style.minHeight = "3rem";
+    };
+  }, []);
+
   return (
     <div
       className="up-post-modal"
@@ -75,7 +156,7 @@ const UpPostModal = (props) => {
             onClick={() => setUpPostModalIsOpen(false)}
             style={{ backgroundColor: style.bgColorGray }}
           >
-            <i class="bi bi-x-lg"></i>
+            <i className="bi bi-x-lg"></i>
           </div>
         </div>
 
@@ -100,9 +181,79 @@ const UpPostModal = (props) => {
             </div>
           </div>
           {/* end of modal-user */}
+          <div className="modal-content">
+            <label
+              ref={textContentRef}
+              onClick={() => {
+                textInputRef.current.focus();
+              }}
+              className="text-content"
+            >
+              <p
+                ref={textInputRef}
+                className="text-input"
+                contentEditable="true"
+                data-text="What's on your mind, bro?"
+                onInput={() => textInputOnInput()}
+              ></p>
+            </label>
 
-          <div className="modal-content"></div>
+            <div className="emotion-content">
+              <i className="bi bi-emoji-smile"></i>
+            </div>
+          </div>
           {/* end of modal-content  */}
+
+          <div
+            ref={uploadImgWrapRef}
+            className="upload-img-wrap"
+            style={{ borderColor: style.borderColor }}
+          >
+            <div
+              className="preview-close"
+              onClick={() => handlePreviewCloseOnClick()}
+              style={{
+                backgroundColor: style.topnavBgColor,
+                borderColor: style.borderColor,
+              }}
+            >
+              <i className="bi bi-x-lg"></i>
+            </div>
+
+            <input
+              ref={themeCheckboxRef}
+              type="checkbox"
+              name="themeCheckbox"
+              id="theme-checkbox"
+              hidden
+            />
+
+            <div
+              className="upload-preview"
+              style={{ backgroundColor: style.upPostInputBox }}
+            >
+              <input
+                type="file"
+                accept="image/*"
+                name="image-upload"
+                id="input"
+                onChange={(e) => handleUploadImg(e)}
+                hidden
+              />
+              <label htmlFor="input" className="preview-icon">
+                <div className="bg"></div>
+                <i></i>
+              </label>
+
+              <div className="preview-title">
+                <span>Add Photos/Videos</span>
+              </div>
+            </div>
+            <div className="preview-img">
+              <img src={profileImg} alt="" />
+            </div>
+          </div>
+          {/**end of upload-img--wrap */}
 
           <div
             className="type-of-upping"
@@ -112,8 +263,12 @@ const UpPostModal = (props) => {
               <span>Add to Your Post</span>
             </div>
             <div className="type-list">
-              {typeList.map((item) => (
-                <div key={item.id} className="type-item">
+              {typeList.map((item, index) => (
+                <div
+                  key={item.id}
+                  ref={(itemRef) => (typeListRef.current[index] = itemRef)}
+                  className="type-item"
+                >
                   <div
                     className="bg"
                     style={{ backgroundColor: style.upPostInputBox }}
@@ -145,7 +300,9 @@ const UpPostModal = (props) => {
               </div>
             </div>
           </div>
-          <div className="btn post-btn">Post</div>
+          <div className="btn post-btn" ref={postBtnRef}>
+            Post
+          </div>
         </div>
       </div>
     </div>

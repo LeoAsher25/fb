@@ -1,5 +1,6 @@
 .hotkeys-item {
-  width: 11.2rem;
+  max-width: 11.2rem;
+  flex: 1;
   height: 100%;
   position: relative;
 
@@ -9,6 +10,10 @@
 
   & + .hotkeys-item {
     margin-left: 0.8rem;
+  }
+
+  &:last-child {
+    display: none;
   }
 
   label {
@@ -96,7 +101,10 @@
 
   .hotkey-item-title {
     display: block;
-    width: 6rem;
+    // width: 6rem;
+
+    white-space: nowrap;
+    padding: 0.6rem 1.2rem;
     height: 3.2rem;
     line-height: 1.6rem;
 
@@ -115,7 +123,26 @@
     opacity: 0;
     transition: opacity 0.2s;
     user-select: none;
+  } // end of .hotkey-item-title
+
+  @media (max-width: 1100px) {
+    &:last-child {
+      display: flex;
+    }
+    &:nth-last-child(2) {
+      display: none;
+    }
   }
-  // end of .hotkey-item-title
-}
-// end of .hotkey-item
+
+  @media (max-width: 700px) {
+    &:not(:last-child) {
+      display: none;
+    }
+
+    &:last-child {
+      position: absolute;
+      width: 5rem;
+      left: 11.2rem;
+    }
+  }
+} // end of .hotkey-item

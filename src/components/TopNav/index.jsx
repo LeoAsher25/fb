@@ -13,9 +13,7 @@ const TopNav = () => {
   const { isLightTheme, lightTheme, darkTheme } = theme;
   const style = isLightTheme ? lightTheme : darkTheme;
 
-  const searchHistoryRef = useRef(null);
   const searchHistoruOverlay = useRef(null);
-  const outFocusInputRef = useRef(null);
   const topNavSearchRef = useRef(null);
   const logoBrandRef = useRef(null);
 
@@ -88,10 +86,64 @@ const TopNav = () => {
         </svg>
       ),
       title: `Friends`,
-      linkTo: "/",
+      linkTo: "/friends",
     },
     {
       id: 3,
+      iconR: (
+        <svg
+          fill={style.color}
+          viewBox="0 0 28 28"
+          className="a8c37x1j ms05siws hwsy1cff b7h9ocf4 em6zcovv"
+          height="28"
+          width="28"
+        >
+          <path d="M5.75 4A.75.75 0 015 3.25v-1a.75.75 0 011.5 0v1a.75.75 0 01-.75.75zm.75 11.251a.75.75 0 01-1.5 0V8.749a.75.75 0 011.5 0v6.502zM5.75 28a.75.75 0 01-.75-.75v-6.5a.75.75 0 011.5 0v6.5a.75.75 0 01-.75.75zm15.737-16.234L23.214 6.5H9.5v11h13.715l-1.728-5.266a.749.749 0 010-.468zM4.75 5h19.5a.75.75 0 01.713.986l-1.974 6.006 1.974 6.023a.75.75 0 01-.713.985H4.75a.75.75 0 010-1.502L8 17.5v-11H4.75a.749.749 0 110-1.5z"></path>
+        </svg>
+      ),
+      iconS: (
+        <svg
+          fill="#2D88FF"
+          viewBox="0 0 28 28"
+          className="a8c37x1j ms05siws hwsy1cff b7h9ocf4 aaxa7vy3"
+          height="28"
+          width="28"
+        >
+          <path d="M5 3.25v-1a.75.75 0 011.5 0v1a.75.75 0 01-1.5 0zm1.5 12.001a.75.75 0 01-1.5 0V8.749a.75.75 0 011.5 0v6.502zM5.75 20a.75.75 0 01.75.75v6.5a.75.75 0 01-1.5 0v-6.5a.75.75 0 01.75-.75zM24.857 5.328a.745.745 0 01.105.674L22.99 12l1.973 6.015a.75.75 0 01-.712.984H4.75a.75.75 0 010-1.5H7.5A.5.5 0 008 17V7.018a.5.5 0 00-.5-.5H4.75a.75.75 0 01-.003-1.5l4-.018c.078.01.11.006.164.018h15.34a.75.75 0 01.606.31z"></path>
+        </svg>
+      ),
+      title: `Pages`,
+      linkTo: "/pages",
+    },
+    {
+      id: 4,
+      iconR: (
+        <svg
+          fill={style.color}
+          viewBox="0 0 28 28"
+          className="a8c37x1j ms05siws hwsy1cff b7h9ocf4 em6zcovv"
+          height="28"
+          width="28"
+        >
+          <path d="M8.75 25.25C8.336 25.25 8 24.914 8 24.5 8 24.086 8.336 23.75 8.75 23.75L19.25 23.75C19.664 23.75 20 24.086 20 24.5 20 24.914 19.664 25.25 19.25 25.25L8.75 25.25ZM17.163 12.846 12.055 15.923C11.591 16.202 11 15.869 11 15.327L11 9.172C11 8.631 11.591 8.297 12.055 8.576L17.163 11.654C17.612 11.924 17.612 12.575 17.163 12.846ZM21.75 20.25C22.992 20.25 24 19.242 24 18L24 6.5C24 5.258 22.992 4.25 21.75 4.25L6.25 4.25C5.008 4.25 4 5.258 4 6.5L4 18C4 19.242 5.008 20.25 6.25 20.25L21.75 20.25ZM21.75 21.75 6.25 21.75C4.179 21.75 2.5 20.071 2.5 18L2.5 6.5C2.5 4.429 4.179 2.75 6.25 2.75L21.75 2.75C23.821 2.75 25.5 4.429 25.5 6.5L25.5 18C25.5 20.071 23.821 21.75 21.75 21.75Z"></path>
+        </svg>
+      ),
+      iconS: (
+        <svg
+          fill="#2D88FF"
+          viewBox="0 0 28 28"
+          className="a8c37x1j ms05siws hwsy1cff b7h9ocf4 aaxa7vy3"
+          height="28"
+          width="28"
+        >
+          <path d="M8.75 25.25C8.336 25.25 8 24.914 8 24.5 8 24.086 8.336 23.75 8.75 23.75L19.25 23.75C19.664 23.75 20 24.086 20 24.5 20 24.914 19.664 25.25 19.25 25.25L8.75 25.25ZM17.164 12.846 12.055 15.923C11.591 16.202 11 15.869 11 15.327L11 9.172C11 8.631 11.591 8.297 12.055 8.576L17.164 11.654C17.612 11.924 17.612 12.575 17.164 12.846M21.75 2.75 6.25 2.75C4.182 2.75 2.5 4.432 2.5 6.5L2.5 18C2.5 20.068 4.182 21.75 6.25 21.75L21.75 21.75C23.818 21.75 25.5 20.068 25.5 18L25.5 6.5C25.5 4.432 23.818 2.75 21.75 2.75"></path>
+        </svg>
+      ),
+      title: `Watch`,
+      linkTo: "/Watch",
+    },
+    {
+      id: 5,
       iconR: (
         <svg
           fill={style.color}
@@ -115,7 +167,34 @@ const TopNav = () => {
         </svg>
       ),
       title: `Groups`,
-      linkTo: "/",
+      linkTo: "/groups",
+    },
+    {
+      id: 6,
+      iconR: (
+        <svg
+          fill={style.color}
+          viewBox="0 0 28 28"
+          className="a8c37x1j ms05siws hwsy1cff b7h9ocf4 em6zcovv"
+          height="28"
+          width="28"
+        >
+          <path d="M23.5 4a1.5 1.5 0 110 3h-19a1.5 1.5 0 110-3h19zm0 18a1.5 1.5 0 110 3h-19a1.5 1.5 0 110-3h19zm0-9a1.5 1.5 0 110 3h-19a1.5 1.5 0 110-3h19z"></path>
+        </svg>
+      ),
+      iconS: (
+        <svg
+          fill="#2D88FF"
+          viewBox="0 0 28 28"
+          className="a8c37x1j ms05siws hwsy1cff b7h9ocf4 em6zcovv"
+          height="28"
+          width="28"
+        >
+          <path d="M23.5 4a1.5 1.5 0 110 3h-19a1.5 1.5 0 110-3h19zm0 18a1.5 1.5 0 110 3h-19a1.5 1.5 0 110-3h19zm0-9a1.5 1.5 0 110 3h-19a1.5 1.5 0 110-3h19z"></path>
+        </svg>
+      ),
+      title: `More`,
+      linkTo: "/more",
     },
   ];
 
@@ -188,14 +267,6 @@ const TopNav = () => {
       style={{ backgroundColor: style.topnavBgColor, color: style.color }}
     >
       <div className="top-nav__wrap" style={{ borderColor: style.bgColorGray }}>
-        <div ref={logoBrandRef} className="branch__wrap">
-          <Link to="/" className="branch img__wrap">
-            {/* <a href="/" className="branch img__wrap"> */}
-            <img src="./img/fbLogo.png" alt="" />
-            {/* </a> */}
-          </Link>
-        </div>
-
         <div
           ref={searchHistoruOverlay}
           className="search-history-overlay"
@@ -203,13 +274,17 @@ const TopNav = () => {
         ></div>
 
         <div
-          ref={topNavSearchRef}
-          className="top-nav-search__wrap"
+          ref={logoBrandRef}
+          className="branch__wrap"
           style={{ backgroundColor: style.topnavBgColor }}
         >
+          <Link to="/" className="branch img__wrap">
+            <img src="./img/fbLogo.png" alt="" />
+          </Link>
+
           <div className="top-nav-search__header">
             <div
-              ref={outFocusInputRef}
+              // ref={outFocusInputRef}
               className="out-focus-input-btn"
               onClick={() => hanleSearchHistoruOverlay()}
             >
@@ -220,21 +295,30 @@ const TopNav = () => {
               <i className="fas fa-arrow-left"></i>
             </div>
 
-            <label htmlFor="top-nav-search-input" className="top-nav-search">
+            <label
+              htmlFor="top-nav-search-input"
+              className="top-nav-search"
+              style={{ backgroundColor: style.upPostInputBox }}
+              onClick={() => handleSearchInputOnClick()}
+            >
               <input
-                style={{ backgroundColor: style.upPostInputBox }}
                 type="text"
                 id="top-nav-search-input"
                 placeholder="Search Facebook"
-                onClick={() => handleSearchInputOnClick()}
               />
               <div className="search-icon">
                 <i style={{ color: style.color }} className="bi bi-search"></i>
               </div>
             </label>
           </div>
+        </div>
 
-          <div ref={searchHistoryRef} className="search-history__wrap">
+        <div
+          ref={topNavSearchRef}
+          className="top-nav-search__wrap"
+          style={{ backgroundColor: style.topnavBgColor }}
+        >
+          <div className="search-history__wrap">
             <div className="search-history__header">
               <div className="search-history-title">
                 <span>Recent Searches</span>
@@ -290,33 +374,80 @@ const TopNav = () => {
             </Link>
           </div>
 
-          <div
-            style={{ backgroundColor: style.bgColorGray }}
-            className="btn-item toggle-theme-btn"
-            onClick={() => handleToggleTheme()}
-          >
-            <i className="bi bi-moon-fill" style={{ color: style.color }}></i>
+          <div className="btn-item toggle-theme-btn">
+            <div
+              style={{ backgroundColor: style.bgColorGray }}
+              className="btn-item__wrap"
+              onClick={() => handleToggleTheme()}
+            >
+              <i className="bi bi-moon-fill" style={{ color: style.color }}></i>
+            </div>
+            <div
+              className="btn-item-title"
+              style={{
+                backgroundColor: style.color,
+                color: style.bodyBgColor,
+              }}
+            >
+              Toggle Theme
+            </div>
           </div>
-          <div
-            style={{ backgroundColor: style.bgColorGray }}
-            className="btn-item mesenger-btn"
-          >
-            <i className="bi bi-messenger" style={{ color: style.color }}></i>
+
+          <div className="btn-item mesenger-btn">
+            <div
+              style={{ backgroundColor: style.bgColorGray }}
+              className="btn-item__wrap"
+            >
+              <i className="bi bi-messenger" style={{ color: style.color }}></i>
+            </div>
+            <div
+              className="btn-item-title"
+              style={{
+                backgroundColor: style.color,
+                color: style.bodyBgColor,
+              }}
+            >
+              Messages
+            </div>
           </div>
-          <div
-            style={{ backgroundColor: style.bgColorGray }}
-            className="btn-item notice-btn"
-          >
-            <i className="bi bi-bell-fill" style={{ color: style.color }}></i>
+
+          <div className="btn-item notice-btn">
+            <div
+              style={{ backgroundColor: style.bgColorGray }}
+              className="btn-item__wrap"
+            >
+              <i className="bi bi-bell-fill" style={{ color: style.color }}></i>
+            </div>
+            <div
+              className="btn-item-title"
+              style={{
+                backgroundColor: style.color,
+                color: style.bodyBgColor,
+              }}
+            >
+              Notifications
+            </div>
           </div>
-          <div
-            style={{ backgroundColor: style.bgColorGray }}
-            className="btn-item down-btn"
-          >
-            <i
-              className="bi bi-caret-down-fill"
-              style={{ color: style.color }}
-            ></i>
+
+          <div className="btn-item down-btn">
+            <div
+              style={{ backgroundColor: style.bgColorGray }}
+              className="btn-item__wrap"
+            >
+              <i
+                className="bi bi-caret-down-fill"
+                style={{ color: style.color }}
+              ></i>
+            </div>
+            <div
+              className="btn-item-title"
+              style={{
+                backgroundColor: style.color,
+                color: style.bodyBgColor,
+              }}
+            >
+              Account
+            </div>
           </div>
         </div>
       </div>

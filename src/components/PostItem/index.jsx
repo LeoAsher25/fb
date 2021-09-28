@@ -23,20 +23,16 @@ const PostItem = (props) => {
     return total;
   };
 
-  const handlePostCmtInputOnKeyUp = () => {
-    if (
-      postCmtInputRef.current.offsetWidth >
-      postCmtBox.current.offsetWidth - otherCmtWayRef.current.offsetWidth
-    ) {
-      postCmtInputRef.current.style.wordBreak = "break-all";
-    } else {
-      postCmtBox.current.style.display = "flex";
+  const handlePostCmtInputOnInput = () => {
+    if (postCmtInputRef.current.offsetHeight <= 20) {
+      postCmtBox.current.classList.remove("active");
+    }
+    if (postCmtInputRef.current.offsetHeight > 20) {
+      postCmtBox.current.classList.add("active");
     }
   };
 
   const handleLikeBtnClick = () => {
-    // const tmpPost = { ...post };
-    // tmpPost.isReacted = !tmpPost.isReacted;
     handleUpdatePost(post);
   };
 
@@ -168,32 +164,42 @@ const PostItem = (props) => {
             <img src={post.user.ava} alt="" />
           </label>
 
-          <div className="post-cmt-box" ref={postCmtBox} action="">
-            <div
+          <div
+            className="post-cmt-box"
+            ref={postCmtBox}
+            style={{ backgroundColor: style.upPostInputBox }}
+            onClick={() => postCmtInputRef.current.focus()}
+          >
+            <label
+              onClick={() => postCmtInputRef.current.focus()}
               className="post-cmt-input"
-              type="text"
               id="post-cmt-input"
-              style={{ backgroundColor: style.bgColorGray }}
-              onKeyUp={(e) => handlePostCmtInputOnKeyUp(e)}
             >
               <p
                 ref={postCmtInputRef}
+                className="cmt-text"
                 contentEditable="true"
                 data-text="Write a public comment..."
-                className="cmt-text"
+                onInput={() => handlePostCmtInputOnInput()}
               ></p>
-            </div>
+            </label>
 
-            <ul
-              ref={otherCmtWayRef}
-              className="other-cmt-way"
-              style={{ backgroundColor: style.bgColorGray }}
-            >
+            <ul ref={otherCmtWayRef} className="other-cmt-way">
               <li className="other-cmt-way-item">
+                <div
+                  className="bg"
+                  style={{ backgroundColor: style.borderColor }}
+                ></div>
                 <i className="bi bi-camera"></i>
-              </li>
-              <li className="other-cmt-way-item">
-                <i className="bi bi-camera"></i>
+                <div
+                  className="title"
+                  style={{
+                    backgroundColor: style.color,
+                    color: style.bodyBgColor,
+                  }}
+                >
+                  Attach a photo or video
+                </div>
               </li>
             </ul>
           </div>

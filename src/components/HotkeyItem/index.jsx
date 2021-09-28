@@ -23,12 +23,12 @@ const HotkeyItem = (props) => {
     const pathname = location.pathname;
     radioRef.current.checked = false;
 
-    if (hotkey.title.toLowerCase().trim() === pathname.substr(1).trim()) {
+    if (hotkey.linkTo.trim() === pathname.trim()) {
       radioRef.current.checked = true;
-    } else if (pathname.trim() === "/" && hotkey.title === "Home") {
+    } else if (pathname.trim() === "/" && hotkey.link === "/") {
       radioRef.current.checked = true;
     }
-  }, [hotkey.title, location]);
+  }, [hotkey.linkTo, location]);
 
   return (
     <li className="hotkeys-item">
@@ -41,7 +41,7 @@ const HotkeyItem = (props) => {
       />
       <label htmlFor={"hotkey-check-radio-" + hotkey.title}>
         <Link
-          to={hotkey.title !== "Home" ? hotkey.title.toLowerCase() : "/"}
+          to={hotkey.linkTo}
           className="hotkeys-link"
           onMouseLeave={() => handleHotkeyTitleonMouseLeave()}
           onMouseEnter={() => handleHotkeyTitleonMouseEnter()}
