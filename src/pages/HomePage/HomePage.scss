@@ -2,6 +2,11 @@
   display: flex;
   position: relative;
   align-items: flex-start;
+  overflow: overlay;
+
+  * {
+    pointer-events: none;
+  }
 
   input[name="lightThemeCheckbox"]:checked {
     & ~ .sidebar {

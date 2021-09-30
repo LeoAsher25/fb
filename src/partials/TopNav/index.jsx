@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useRef } from "react";
 import { Link } from "react-router-dom";
 import { ThemeContext } from "../../contexts/ThemeContextProvider";
 import HotkeyItem from "../../components/HotkeyItem";
@@ -194,7 +194,7 @@ const TopNav = () => {
         </svg>
       ),
       title: `More`,
-      linkTo: "/more",
+      linkTo: "/bookmarks",
     },
   ];
 
@@ -270,18 +270,6 @@ const TopNav = () => {
             </div>
 
             <SearchHistoryList style={style} isLightTheme={isLightTheme} />
-
-            {/* <div className="search-history__list">
-              {searchHistoryList.map((searchHistoryItem) => (
-                <SearchHistoryItem
-                  key={searchHistoryItem.id}
-                  searchHistoryItem={searchHistoryItem}
-                  setSearchHistoryList={setSearchHistoryList}
-                  isLightTheme={isLightTheme}
-                  style={style}
-                />
-              ))}
-            </div> */}
           </div>
         </div>
 

@@ -8,6 +8,7 @@ import ThemeContextProvider from "./contexts/ThemeContextProvider";
 // import router
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useEffect } from "react";
+import BookmarksPage from "./pages/Bookmarks";
 
 function App() {
   // useEffect(() => {
@@ -80,6 +81,10 @@ function App() {
               >
                 Groups
               </h1>
+            </Route>
+
+            <Route path="/bookmarks">
+                <BookmarksPage />
             </Route>
 
             <Route exact path="/">

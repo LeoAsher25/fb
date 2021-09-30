@@ -312,7 +312,6 @@
       .user-btn {
         margin-right: 0.8rem;
         border-radius: 2rem;
-        // overflow: hidden;
         position: relative;
 
         .bg-overlay {
@@ -327,6 +326,7 @@
         &:hover {
           .bg-overlay {
             display: block;
+            border-radius: 2rem;
           }
         }
 

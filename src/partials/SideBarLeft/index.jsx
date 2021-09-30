@@ -15,7 +15,10 @@ const SideBarLeft = () => {
   const { sidebarHotKeyList, sidebarContactList } = useContext(SideBarContext);
 
   return (
-    <div className="sidebar-left">
+    <div
+      className="sidebar-left"
+      style={{ backgroundColor: style.bodyBgColor }}
+    >
       <SideBarItem style={style} item={sidebarContactList.at(0)} />
       {sidebarHotKeyList.map((item) => (
         <SideBarItem key={item.id} style={style} item={item} />

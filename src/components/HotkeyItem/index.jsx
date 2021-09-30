@@ -7,6 +7,7 @@ const HotkeyItem = (props) => {
 
   const hotkeyTitleRed = useRef(null);
   const radioRef = useRef(null);
+  const currentPathRe = useRef("");
 
   const handleHotkeyTitleonMouseEnter = () => {
     hotkeyTitleRed.current.style.transitionDelay = "0.3s";
@@ -21,6 +22,8 @@ const HotkeyItem = (props) => {
 
   useEffect(() => {
     const pathname = location.pathname;
+    currentPathRe.current = pathname;
+
     radioRef.current.checked = false;
 
     if (hotkey.linkTo.trim() === pathname.trim()) {
