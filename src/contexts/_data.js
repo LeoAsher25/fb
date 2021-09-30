@@ -1,6 +1,6 @@
 export const _post = [
   {
-    id: 1,
+    postID: 1,
     author: {
       ava: "./img/petsla.png",
       name: "Leo Asher",
@@ -17,34 +17,30 @@ export const _post = [
     isReacted: false,
     reactions: {
       like: 0,
-      heart: 0,
-      care: 0,
-      laugh: 0,
-      wow: 0,
-      sad: 0,
-      angry: 0,
     },
     comments: [
       {
+        cmtID: 1,
         viewer: {
           ava: "./img/petsla.png",
           username: "Leo Asher",
         },
-        commentContent:
-          "Bấm vào link https://www.facebook.com/petsla.vn để nhận quà nè <3",
+        commentContent: "ahihi",
+        publishedTime: "19m",
       },
       {
+        cmtID: 2,
         viewer: {
           ava: "./img/petsla.png",
           username: "Leo Asher",
         },
-        commentContent:
-          "Bấm vào link https://www.facebook.com/petsla.vn để nhận quà nè <3",
+        commentContent: "ahah",
+        publishedTime: "19m",
       },
     ],
   },
   {
-    id: 2,
+    postID: 2,
     author: {
       ava: "./img/petsla.png",
       name: "Leo Asher",
@@ -52,7 +48,7 @@ export const _post = [
     publishedTime: "21h",
     content: {
       text: "Bấm vào link https://www.facebook.com/petsla.vn để nhận quà nè <3",
-      media: "./img/D21.jpg",
+      media: "",
     },
     user: {
       ava: "./img/petsla.png",
@@ -60,30 +56,28 @@ export const _post = [
     },
     isReacted: true,
     reactions: {
-      like: 1,
-      heart: 4,
-      care: 1,
-      laugh: 1,
-      wow: 1,
-      sad: 1,
-      angry: 1,
+      like: 10,
     },
     comments: [
       {
+        cmtID: 1,
         viewer: {
           ava: "./img/petsla.png",
           username: "Leo Asher",
         },
         commentContent:
           "Bấm vào link https://www.facebook.com/petsla.vn để nhận quà nè <3",
+        publishedTime: "19m",
       },
       {
+        cmtID: 2,
         viewer: {
           ava: "./img/petsla.png",
           username: "Leo Asher",
         },
         commentContent:
           "Bấm vào link https://www.facebook.com/petsla.vn để nhận quà nè <3",
+        publishedTime: "19m",
       },
     ],
   },

@@ -20,7 +20,12 @@ const UpPost = () => {
     >
       {upPostModalIsOpen ? (
         <>
-          <div className="overlay"></div>
+          <div
+            className="overlay"
+            onClick={() => {
+              setUpPostModalIsOpen(false);
+            }}
+          ></div>
           <UpPostModal setUpPostModalIsOpen={setUpPostModalIsOpen} />
         </>
       ) : (
@@ -53,7 +58,7 @@ const UpPost = () => {
               style={{ backgroundColor: style.upPostInputBox }}
             ></div>
             <div className="up-post__footer-item__img"></div>
-            <span className="up-post__footer-item__text">Photo/Video</span>
+            <span className="up-post__footer-item__text">Live Video</span>
           </div>
 
           <div className="up-post__footer-item">
@@ -71,7 +76,7 @@ const UpPost = () => {
               style={{ backgroundColor: style.upPostInputBox }}
             ></div>
             <div className="up-post__footer-item__img"></div>
-            <span className="up-post__footer-item__text">Photo/Video</span>
+            <span className="up-post__footer-item__text">Feeling/Activity</span>
           </div>
         </div>
       </div>

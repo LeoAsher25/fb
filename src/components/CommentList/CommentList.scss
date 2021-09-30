@@ -1,0 +1,168 @@
+.cmt-list {
+  .cmt-item {
+    position: relative;
+
+    .cmt__wrap {
+      display: flex;
+
+      .viewer-ava {
+        flex: 1;
+        max-width: 3.2rem;
+        max-height: 3.2rem;
+        margin-right: 0.8rem;
+
+        img {
+          width: 100%;
+          border-radius: 50%;
+        }
+      }
+      .cmt-text {
+        flex: 1;
+
+        user-select: text;
+        position: relative;
+
+        .cmt-content__wrap {
+          display: flex;
+          align-items: center;
+
+          .cmt-content {
+            padding: 0.6rem 1.6rem 1rem;
+            border-radius: 1.8rem;
+
+            .viewer-name {
+              line-height: 1.6rem;
+              span {
+                font-size: 1.3rem;
+                font-weight: 600;
+              }
+            }
+
+            .cmt-desc {
+              line-height: 2rem;
+              span {
+                font-size: 1.5rem;
+              }
+            }
+          }
+
+          .cmt-see-more {
+            position: relative;
+            margin-left: 0.3rem;
+
+            width: 3.2rem;
+            height: 3.2rem;
+            line-height: 3.2rem;
+            text-align: center;
+
+            cursor: pointer;
+            transition: 0.1s;
+
+            .cmt-see-more-icon {
+              position: relative;
+
+              i {
+                opacity: 0;
+                font-size: 1.4rem;
+              }
+            }
+
+            &:hover {
+              & > .bg {
+                border-radius: 50%;
+                display: block;
+              }
+            }
+
+            .see-more-list {
+              position: absolute;
+              border: 1px solid;
+              z-index: 10;
+
+              width: 20rem;
+              padding: 0.6rem;
+
+              list-style: none;
+              top: 120%;
+              right: 50%;
+              transform: translateX(50%);
+              cursor: auto;
+
+              border-radius: 0.5rem;
+              box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+
+              .see-more-item {
+                padding: 0.8rem;
+                position: relative;
+                line-height: 1.8rem;
+                cursor: pointer;
+
+                &:hover {
+                  & > .bg {
+                    border-radius: 0.5rem;
+                    display: block;
+                  }
+                }
+
+                span {
+                  font-weight: 700;
+                  font-size: 1.5rem;
+                  line-height: 2rem;
+                  position: relative;
+
+                  opacity: 0.9;
+                }
+              }
+            }
+          }
+
+          &:hover {
+            .cmt-see-more {
+              i {
+                opacity: 0.8;
+              }
+            }
+          }
+        }
+
+        .cmt-react {
+          display: flex;
+          margin: 0rem 1.4rem 0.4rem;
+
+          .cmt-react-item {
+            cursor: pointer;
+            user-select: none;
+            line-height: 1.6rem;
+            opacity: 0.8;
+
+            span {
+              font-size: 1.2rem;
+              line-height: 1.6rem;
+              font-weight: 700;
+            }
+
+            &:last-child {
+              span {
+                font-weight: 400;
+              }
+            }
+
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+
+          .cmt-react-separate {
+            margin: 0 0.2rem;
+            opacity: 0.8;
+            line-height: 1.5rem;
+
+            i {
+              font-size: 0.9rem;
+            }
+          }
+        } // end of .cmt-react
+      } // end of .cmt-text
+    } // end of .cmt__wrap
+  } //end of .cmt-item
+} // end of .cmt-list

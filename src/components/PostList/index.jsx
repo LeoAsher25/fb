@@ -7,31 +7,31 @@ const PostList = () => {
   const { posts, setPosts } = useContext(PostsContext);
 
   const handleUpdatePost = (post) => {
-    // setPosts([...posts, post]);
     const tempPosts = [...posts];
-    const postIndex = tempPosts.findIndex((item) => item.id === post.id);
-
-    const editedPost = { ...post };
-
-    if (editedPost.isReacted) {
-      editedPost.isReacted = !editedPost.isReacted;
-      post.reactions.like -= 1;
-    } else {
-      editedPost.isReacted = !editedPost.isReacted;
-      post.reactions.like += 1;
-    }
-
-    tempPosts.splice(postIndex, 1, editedPost);
+    const postIndex = tempPosts.findIndex(
+      (item) => item.postID === post.postID
+    );
+    tempPosts.splice(postIndex, 1, post);
     setPosts(tempPosts);
+  };
+
+  // const handleAddCmt = (post) => {
+  //   setPosts([...posts, post]);
+  // };
+
+  const handleDeletePost = (post) => {
+    const tmpPosts = posts.filter((item) => item.postID !== post.postID);
+    setPosts([...tmpPosts]);
   };
 
   return (
     <div className="post-list">
-      {posts.map((post, index) => (
+      {posts.map((post) => (
         <PostItem
-          key={post.id}
+          key={post.postID}
           post={post}
           handleUpdatePost={handleUpdatePost}
+          handleDeletePost={handleDeletePost}
         />
       ))}
     </div>

@@ -1,8 +1,14 @@
 import React from "react";
 import "./SearchHistoryItem.scss";
 
+import { Link } from "react-router-dom";
+
 const SearchHistoryItem = (props) => {
-  const { searchHistoryItem, style } = props;
+  const { searchHistoryItem, style, handleDeleteSearchHistoryItem } = props;
+
+  const handleDeleteOnClick = () => {
+    handleDeleteSearchHistoryItem(searchHistoryItem);
+  };
 
   return (
     <div className="search-history-item">
@@ -10,7 +16,7 @@ const SearchHistoryItem = (props) => {
         className="search-history-item-bg"
         style={{ backgroundColor: style.bgColorGray }}
       ></div>
-      <a href={searchHistoryItem.link} className="search-history-item-link">
+      <Link to={searchHistoryItem.link} className="search-history-item-link">
         <div className="search-history-ava">
           {searchHistoryItem.ava.trim() !== "" ? (
             <img src={searchHistoryItem.ava} alt="" />
@@ -29,8 +35,11 @@ const SearchHistoryItem = (props) => {
         <div className="search-history-item-name">
           <span> {searchHistoryItem.name} </span>
         </div>
-      </a>
-      <div className="search-history-item-delete">
+      </Link>
+      <div
+        className="search-history-item-delete"
+        onClick={() => handleDeleteOnClick()}
+      >
         <div className="bg"></div>
         <i style={{ color: style.color }} className="bi bi-x"></i>
       </div>

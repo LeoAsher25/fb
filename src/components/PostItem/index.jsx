@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useRef } from "react";
-// import PropTypes from "prop-types";
+import { v4 as uuidv4 } from "uuid";
+
 import { ThemeContext } from "../../contexts/ThemeContextProvider";
+import CommentList from "../CommentList";
 import "./PostItem.scss";
 
 const PostItem = (props) => {
-  const { post, handleUpdatePost } = props;
+  const { post, handleUpdatePost, handleDeletePost } = props;
 
   // get theme context
   const { theme } = useContext(ThemeContext);
@@ -14,6 +16,10 @@ const PostItem = (props) => {
   const postCmtBox = useRef(null);
   const postCmtInputRef = useRef(null);
   const otherCmtWayRef = useRef(null);
+
+  const seeMoreRef = useRef(null);
+  const checkboxReactRef = useRef(null);
+  const themeCheckboxRef = useRef(null);
 
   const getQuantityOfReactions = () => {
     let total = 0;
@@ -32,12 +38,59 @@ const PostItem = (props) => {
     }
   };
 
-  const handleLikeBtnClick = () => {
-    handleUpdatePost(post);
+  const handlePostCmtInputOnKeyDown = (e) => {
+    if (!e.shiftKey && e.keyCode === 13) {
+      e.preventDefault();
+      if (postCmtInputRef.current.textContent.trim() === "") return;
+      const textCmt = postCmtInputRef.current.innerHTML.trim();
+      postCmtInputRef.current.innerHTML = "";
+      handlePostCmtInputOnInput();
+
+      const updatedPost = { ...post };
+      const newCmt = {
+        cmtID: uuidv4(),
+        viewer: {
+          ava: "./img/petsla.png",
+          username: "Leo Asher",
+        },
+        commentContent: textCmt,
+        publishedTime: Date.now(),
+      };
+
+      updatedPost.comments = [...updatedPost.comments, newCmt];
+
+      handleUpdatePost(updatedPost);
+    }
   };
 
-  const checkboxReactRef = useRef(null);
-  const themeCheckboxRef = useRef(null);
+  const handleLikeBtnClick = () => {
+    const updatedPost = { ...post };
+
+    if (updatedPost.isReacted) {
+      updatedPost.isReacted = false;
+      updatedPost.reactions.like -= 1;
+      console.log("to false");
+    } else {
+      updatedPost.isReacted = true;
+      updatedPost.reactions.like += 1;
+    }
+
+    handleUpdatePost(updatedPost);
+  };
+
+  const handleDeletePostOnClick = () => {
+    handleDeletePost(post);
+  };
+
+  const handleSeeMoreBtnOnClick = () => {
+    seeMoreRef.current.classList.toggle("active");
+    seeMoreRef.current.focus();
+  };
+
+  const handleSeeMoreOnBlur = () => {
+    console.log("blur");
+    seeMoreRef.current.classList.remove("active");
+  };
 
   useEffect(() => {
     themeCheckboxRef.current.checked = !isLightTheme;
@@ -55,6 +108,13 @@ const PostItem = (props) => {
         color: style.color,
       }}
     >
+      <input
+        ref={themeCheckboxRef}
+        type="checkbox"
+        name="themeCheckbox"
+        id="theme-checkbox"
+        hidden
+      />
       <div className="post-header">
         <div className="post-author">
           <a href="/" className="author-ava">
@@ -71,17 +131,68 @@ const PostItem = (props) => {
           </div>
         </div>
 
-        <div className="post-header-3dots">
+        <label
+          className="post-see-more-btn"
+          onClick={() => handleSeeMoreBtnOnClick()}
+        >
           <div
             className="bg"
             style={{ backgroundColor: style.upPostInputBox }}
           ></div>
           <i className="fas fa-ellipsis-h"></i>
+        </label>
+
+        <div
+          ref={seeMoreRef}
+          className="post-see-more"
+          style={{
+            backgroundColor: style.topnavBgColor,
+            borderColor: style.borderColor,
+          }}
+          tabIndex="-1"
+          onBlur={() => handleSeeMoreOnBlur()}
+        >
+          <ul className="see-more__list">
+            <li
+              className="see-more-item"
+              onClick={() => handleDeletePostOnClick()}
+            >
+              <div
+                className="bg"
+                style={{ backgroundColor: style.upPostInputBox }}
+              ></div>
+              <div className="see-more-item__wrap">
+                <div className="icon">
+                  <i
+                    style={{
+                      backgroundImage:
+                        "url('https://static.xx.fbcdn.net/rsrc.php/v3/yA/r/iA32q0CEate.png')",
+                    }}
+                  ></i>
+                </div>
+                <div className="content">
+                  <div className="title">
+                    <span>Move to trash</span>
+                  </div>
+                  <div className="desc">
+                    <span>Item in your trash are deleted after 30 days.</span>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
 
       <div className="post-body">
-        <div className="post-content-text">{post.content.text}</div>
+        {post.content.text !== "" ? (
+          <div
+            className="post-content-text"
+            dangerouslySetInnerHTML={{ __html: post.content.text }}
+          ></div>
+        ) : (
+          ""
+        )}
         <div className="post-content-media">
           <img className="media" src={post.content.media} alt="" />
         </div>
@@ -89,7 +200,7 @@ const PostItem = (props) => {
 
       <div className="post-footer">
         <div className="post-footer-heading">
-          {getQuantityOfReactions() != 0 ? (
+          {getQuantityOfReactions() !== 0 ? (
             <div className="quantity-react quantity-of-reactions">
               <span>{getQuantityOfReactions()}</span>
               <span>Like</span>
@@ -97,22 +208,19 @@ const PostItem = (props) => {
           ) : (
             ""
           )}
-          <div className="quantity-react quantity-of-comments">
-            <span>{post.comments.length}</span>
-            <span>Comments</span>
-          </div>
+          {post.comments.length !== 0 ? (
+            <div className="quantity-react quantity-of-comments">
+              <span>{post.comments.length}</span>
+              <span>Comments</span>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
         <div
           className="post-footer-btn__wrap"
           style={{ color: style.colorGray, borderColor: style.borderColor }}
         >
-          <input
-            ref={themeCheckboxRef}
-            type="checkbox"
-            name="themeCheckbox"
-            id="theme-checkbox"
-            hidden
-          />
           <div className="like-btn__wrap btn__wrap-item">
             <div
               className="bg"
@@ -141,7 +249,12 @@ const PostItem = (props) => {
               className="bg"
               style={{ backgroundColor: style.upPostInputBox }}
             ></div>
-            <div className="btn__sub-wrap-item">
+            <div
+              className="btn__sub-wrap-item"
+              onClick={() => {
+                postCmtInputRef.current.focus();
+              }}
+            >
               <i></i>
               <span>Comment</span>
             </div>
@@ -157,6 +270,10 @@ const PostItem = (props) => {
               <span>Share</span>
             </div>
           </div>
+        </div>
+
+        <div className="comment-list__wrap">
+          <CommentList comments={post.comments} style={style} />
         </div>
 
         <div className="post-footer-cmt__wrap">
@@ -180,7 +297,8 @@ const PostItem = (props) => {
                 className="cmt-text"
                 contentEditable="true"
                 data-text="Write a public comment..."
-                onInput={() => handlePostCmtInputOnInput()}
+                onInput={(e) => handlePostCmtInputOnInput(e)}
+                onKeyDown={(e) => handlePostCmtInputOnKeyDown(e)}
               ></p>
             </label>
 
@@ -190,7 +308,13 @@ const PostItem = (props) => {
                   className="bg"
                   style={{ backgroundColor: style.borderColor }}
                 ></div>
-                <i className="bi bi-camera"></i>
+                <i
+                  style={{
+                    backgroundImage:
+                      "url('https://static.xx.fbcdn.net/rsrc.php/v3/yB/r/Y_WzR6jNFzU.png')",
+                    backgroundPosition: "0 -387px",
+                  }}
+                ></i>
                 <div
                   className="title"
                   style={{

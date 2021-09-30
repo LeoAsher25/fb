@@ -1,8 +1,9 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ThemeContext } from "../../contexts/ThemeContextProvider";
 import HotkeyItem from "../HotkeyItem";
 import SearchHistoryItem from "../SearchHistoryItem";
+import SearchHistoryList from "../SearchHistoryList";
 
 // import scss
 import "./TopNav.scss";
@@ -198,69 +199,6 @@ const TopNav = () => {
     },
   ];
 
-  const searchHistoryList = [
-    {
-      id: 1,
-      ava: "./img/petsla.png",
-      name: "PetsLa",
-      link: "/",
-    },
-    {
-      id: 2,
-      ava: "./img/leoasher.png",
-      name: "Leo Asher",
-      link: "/",
-    },
-    {
-      id: 3,
-      ava: "",
-      name: "Lập trình hướng đối tượng Java cô Vân anh bla ble blo Lập trình hướng đối tượng Java cô Vân anh bla ble blo",
-      link: "/",
-    },
-    {
-      id: 4,
-      ava: "./img/leoasher.png",
-      name: "Leo Asher",
-      link: "/",
-    },
-    {
-      id: 5,
-      ava: "",
-      name: "lập trình python nhóm 3 kíp 10 thứ 10 & thứ 11 tháng 13 kíp 10 thứ 10 & thứ 11 tháng 13",
-      link: "/",
-    },
-    {
-      id: 6,
-      ava: "./img/petsla.png",
-      name: "Nguyễn Văn Hậu",
-      link: "/",
-    },
-    {
-      id: 7,
-      ava: "./img/fbLogo.png",
-      name: "Facebook",
-      link: "/",
-    },
-    {
-      id: 8,
-      ava: "./img/D21.jpg",
-      name: "D21 học viện công nghệ bưu chính viễn thông cơ sở Hà Nội, Việt Nam, Earth",
-      link: "/",
-    },
-    {
-      id: 9,
-      ava: "./img/petsla.png",
-      name: "PetsLa",
-      link: "/",
-    },
-    {
-      id: 10,
-      ava: "./img/petsla.png",
-      name: "PetsLa",
-      link: "/",
-    },
-  ];
-
   return (
     <div
       className="top-nav"
@@ -331,19 +269,22 @@ const TopNav = () => {
                 <span>Edit</span>
               </div>
             </div>
-            <div className="search-history__list">
+
+            <SearchHistoryList style={style} isLightTheme={isLightTheme} />
+
+            {/* <div className="search-history__list">
               {searchHistoryList.map((searchHistoryItem) => (
                 <SearchHistoryItem
                   key={searchHistoryItem.id}
                   searchHistoryItem={searchHistoryItem}
+                  setSearchHistoryList={setSearchHistoryList}
                   isLightTheme={isLightTheme}
                   style={style}
                 />
               ))}
-            </div>
+            </div> */}
           </div>
         </div>
-        {/* </div> */}
 
         <div className="hotkeys-bar">
           <ul className="hotkeys-list">

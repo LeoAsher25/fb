@@ -1,9 +1,12 @@
 import React, { useContext, useRef, useEffect, useState } from "react";
 import { ThemeContext } from "../../contexts/ThemeContextProvider";
-import SideBarItem from "../SideBarItem";
+
 import { Link } from "react-router-dom";
 
+import { v4 as uuidv4 } from "uuid";
+
 import "./UpPostModal.scss";
+import { PostsContext } from "../../contexts/PostsContextProvider";
 
 const UpPostModal = (props) => {
   const { setUpPostModalIsOpen } = props;
@@ -11,6 +14,8 @@ const UpPostModal = (props) => {
   const { theme } = useContext(ThemeContext);
   const { isLightTheme, lightTheme, darkTheme } = theme;
   const style = isLightTheme ? lightTheme : darkTheme;
+
+  const { handleAddPost } = useContext(PostsContext);
 
   const user = {
     id: 1,
@@ -90,15 +95,18 @@ const UpPostModal = (props) => {
 
   // handle when upload image
   const handleUploadImg = (e) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      if (reader.readyState == 2) {
-        setProfileImg(reader.result);
-      }
-    };
-
-    reader.readAsDataURL(e.target.files[0]);
+    // const reader = new FileReader();
+    // reader.readAsDataURL(e.target.files[0]);
+    // reader.onload = () => {
+    //   if (reader.readyState == 2) {
+    //     setProfileImg(reader.result);
+    //   }
+    // };
+    setProfileImg(URL.createObjectURL(e.target.files[0]));
+    postBtnRef.current.classList.add("active");
   };
+
+  console.log(profileImg);
 
   // handle when close preview
   const handlePreviewCloseOnClick = () => {
@@ -108,6 +116,37 @@ const UpPostModal = (props) => {
     textInputRef.current.classList.remove("active");
     uploadImgWrapRef.current.style.display = "none";
     textContentRef.current.style.minHeight = "14rem";
+  };
+
+  const handlePostSubmit = () => {
+    if (textInputRef.current.textContent.trim() === "" && profileImg === "")
+      return;
+    const postTextContent = textInputRef.current.innerHTML;
+
+    const post = {
+      postID: uuidv4(),
+      author: {
+        ava: "./img/petsla.png",
+        name: "Leo Asher",
+      },
+      publishedTime: Date.now(),
+      content: {
+        text: postTextContent,
+        media: profileImg,
+      },
+      user: {
+        ava: "./img/petsla.png",
+        username: "Leo Asher",
+      },
+      isReacted: false,
+      reactions: {
+        like: 0,
+      },
+      comments: [],
+    };
+
+    handleAddPost(post);
+    setUpPostModalIsOpen(false);
   };
 
   // handle check input checkbox themeCheckbox
@@ -208,6 +247,23 @@ const UpPostModal = (props) => {
             ref={uploadImgWrapRef}
             className="upload-img-wrap"
             style={{ borderColor: style.borderColor }}
+            onDragEnter={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+            }}
+            onDragOver={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+            }}
+            onDrop={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+
+              const dt = e.dataTransfer;
+              const files = dt.files;
+
+              setProfileImg(URL.createObjectURL(files[0]));
+            }}
           >
             <div
               className="preview-close"
@@ -234,7 +290,8 @@ const UpPostModal = (props) => {
             >
               <input
                 type="file"
-                accept="image/*"
+                multiple
+                // accept="image/*"
                 name="image-upload"
                 id="input"
                 onChange={(e) => handleUploadImg(e)}
@@ -300,7 +357,11 @@ const UpPostModal = (props) => {
               </div>
             </div>
           </div>
-          <div className="btn post-btn" ref={postBtnRef}>
+          <div
+            className="btn post-btn"
+            ref={postBtnRef}
+            onClick={() => handlePostSubmit()}
+          >
             Post
           </div>
         </div>

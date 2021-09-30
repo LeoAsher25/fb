@@ -82,6 +82,7 @@
   }
 
   .body {
+    width: 100%;
     flex: 2;
     padding: 0 3.2rem;
 
@@ -95,10 +96,7 @@
 
     .body-content {
       max-width: 60rem;
-      // .up-post,
-      // .post-list {
-      //   width: 100%;
-      // }
+      width: 100%;
     }
   }
 
