@@ -1,5 +1,5 @@
-import HomePage from "./components/HomePage";
-import TopNav from "./components/TopNav";
+import HomePage from "./pages/HomePage";
+import TopNav from "./partials/TopNav";
 import PostsContextProvider from "./contexts/PostsContextProvider";
 
 // import themeContextProvider

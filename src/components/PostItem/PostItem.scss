@@ -2,7 +2,7 @@
 
 .post-item {
   padding: 1.2rem 0rem 0;
-  margin-bottom: 5rem;
+  margin-bottom: 1.6rem;
   border-radius: 1rem;
   border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
@@ -163,6 +163,11 @@
       font-size: 1.5rem;
       font-weight: 400;
       line-height: 2rem;
+
+      a {
+        text-decoration: underline;
+        color: $blue-color;
+      }
     }
 
     .post-content-media {
@@ -321,137 +326,6 @@
     }
     // end of post-footer-btn__wrap
     .post-footer-cmt__wrap {
-      display: flex;
-      align-items: center;
-      padding-bottom: 0.8rem;
-
-      .user-cmt {
-        width: 3.2rem;
-        height: 3.2rem;
-        margin-right: 0.5rem;
-
-        img {
-          width: 100%;
-        }
-      }
-
-      .post-cmt-box {
-        position: relative;
-        flex: 1;
-        display: flex;
-        align-items: center;
-
-        border-radius: 1.8rem;
-        padding-right: 5rem;
-        cursor: text;
-
-        .post-cmt-input {
-          position: relative;
-          flex: 1;
-          width: 100%;
-
-          display: flex;
-          align-items: center;
-
-          padding: 0.8rem 1.2rem 0.8rem 1.2rem;
-
-          [contentEditable="true"] {
-            width: 100%;
-
-            font-size: 1.5rem;
-            line-height: 2rem;
-
-            outline: none;
-            border: none;
-
-            &:empty::after {
-              content: attr(data-text);
-              opacity: 0.6;
-            }
-          }
-        }
-        // end of .post-cmt-input
-
-        .other-cmt-way {
-          padding: 0;
-          list-style: none;
-          // padding-right: 1rem;
-
-          display: flex;
-          align-items: center;
-          justify-content: end;
-
-          position: absolute;
-          right: 0;
-          bottom: 0;
-
-          li {
-            position: relative;
-            width: 3.2rem;
-            height: 3.2rem;
-
-            margin: 0.2rem;
-            border-radius: 50%;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            cursor: pointer;
-
-            i {
-              position: relative;
-
-              display: block;
-              // height: 100%;
-              // width: 100%;
-
-              width: 1.6rem;
-              height: 1.6rem;
-
-              background-repeat: no-repeat;
-
-              line-height: 3.2rem;
-
-              text-align: center;
-              opacity: 0.7;
-            }
-
-            .title {
-              position: absolute;
-
-              // transform: translateX(-30%);
-              right: 0;
-              bottom: 90%;
-
-              white-space: nowrap;
-              padding: 0.8rem 1.2rem;
-              border-radius: 0.8rem;
-
-              font-size: 1.3rem;
-              opacity: 0.75;
-              display: none;
-            }
-
-            i:hover ~ .title {
-              display: block;
-            }
-
-            &:hover {
-              .bg {
-                filter: brightness(1.1);
-                border-radius: 50%;
-                display: block;
-              }
-            }
-          }
-        } // end of .other-cmt-way
-
-        &.active {
-          padding-right: 0;
-          padding-bottom: 3.5rem;
-        }
-      } // end of .post-cmt-box
     } // end of .post-footer-cmt__wrap
   } // end of .post-footer
 

@@ -1,0 +1,18 @@
+.side-bar-right {
+  height: 100vh;
+  overflow: overlay;
+
+  .contact__wrap {
+    .contact__header {
+      .header-title {
+        padding-top: 2rem;
+        padding-bottom: 1rem;
+        padding-left: 1.7rem;
+
+        font-size: 1.7rem;
+        font-weight: 600;
+        line-height: 2rem;
+      }
+    }
+  }
+}

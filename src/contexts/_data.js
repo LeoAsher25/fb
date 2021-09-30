@@ -1,86 +1,84 @@
 export const _post = [
-  {
-    postID: 1,
-    author: {
-      ava: "./img/petsla.png",
-      name: "Leo Asher",
-    },
-    publishedTime: "21h",
-    content: {
-      text: "Bấm vào link https://www.facebook.com/petsla.vn để nhận quà nè <3",
-      media: "./img/D21.jpg",
-    },
-    user: {
-      ava: "./img/petsla.png",
-      username: "Leo Asher",
-    },
-    isReacted: false,
-    reactions: {
-      like: 0,
-    },
-    comments: [
-      {
-        cmtID: 1,
-        viewer: {
-          ava: "./img/petsla.png",
-          username: "Leo Asher",
-        },
-        commentContent: "ahihi",
-        publishedTime: "19m",
-      },
-      {
-        cmtID: 2,
-        viewer: {
-          ava: "./img/petsla.png",
-          username: "Leo Asher",
-        },
-        commentContent: "ahah",
-        publishedTime: "19m",
-      },
-    ],
-  },
-  {
-    postID: 2,
-    author: {
-      ava: "./img/petsla.png",
-      name: "Leo Asher",
-    },
-    publishedTime: "21h",
-    content: {
-      text: "Bấm vào link https://www.facebook.com/petsla.vn để nhận quà nè <3",
-      media: "",
-    },
-    user: {
-      ava: "./img/petsla.png",
-      username: "Leo Asher",
-    },
-    isReacted: true,
-    reactions: {
-      like: 10,
-    },
-    comments: [
-      {
-        cmtID: 1,
-        viewer: {
-          ava: "./img/petsla.png",
-          username: "Leo Asher",
-        },
-        commentContent:
-          "Bấm vào link https://www.facebook.com/petsla.vn để nhận quà nè <3",
-        publishedTime: "19m",
-      },
-      {
-        cmtID: 2,
-        viewer: {
-          ava: "./img/petsla.png",
-          username: "Leo Asher",
-        },
-        commentContent:
-          "Bấm vào link https://www.facebook.com/petsla.vn để nhận quà nè <3",
-        publishedTime: "19m",
-      },
-    ],
-  },
+  // {
+  //   postID: 1,
+  //   author: {
+  //     ava: "./img/petsla.png",
+  //     name: "Leo Asher",
+  //   },
+  //   publishedTime: "21h",
+  //   content: {
+  //     text: "Click <a href='https://www.facebook.com/petsla.vn'>Tại đây</a> để nhận quà nè <3",
+  //     media: "./img/D21.jpg",
+  //   },
+  //   user: {
+  //     ava: "./img/petsla.png",
+  //     username: "Leo Asher",
+  //   },
+  //   isReacted: false,
+  //   reactions: {
+  //     like: 0,
+  //   },
+  //   comments: [
+  //     {
+  //       cmtID: 1,
+  //       viewer: {
+  //         ava: "./img/petsla.png",
+  //         username: "Leo Asher",
+  //       },
+  //       commentContent: {
+  //         text: "ahihi",
+  //         media: "",
+  //       },
+  //       publishedTime: "19m",
+  //     },
+  //     {
+  //       cmtID: 2,
+  //       viewer: {
+  //         ava: "./img/petsla.png",
+  //         username: "Leo Asher",
+  //       },
+  //       commentContent: {
+  //         text: "Click <a href='https://www.facebook.com/petsla.vn'>Tại đây</a> để nhận quà nè <3",
+  //         media: "",
+  //       },
+  //       publishedTime: "19m",
+  //     },
+  //   ],
+  // },
+  // {
+  //   postID: 2,
+  //   author: {
+  //     ava: "./img/petsla.png",
+  //     name: "Leo Asher",
+  //   },
+  //   publishedTime: "21h",
+  //   content: {
+  //     text: "Click <a href='https://www.facebook.com/petsla.vn'>Tại đây</a> để nhận quà nè <3",
+  //     media: "",
+  //   },
+  //   user: {
+  //     ava: "./img/petsla.png",
+  //     username: "Leo Asher",
+  //   },
+  //   isReacted: true,
+  //   reactions: {
+  //     like: 10,
+  //   },
+  //   comments: [
+  //     {
+  //       cmtID: 1,
+  //       viewer: {
+  //         ava: "./img/petsla.png",
+  //         username: "Leo Asher",
+  //       },
+  //       commentContent: {
+  //         text: "ahaha",
+  //         media: "",
+  //       },
+  //       publishedTime: "19m",
+  //     },
+  //   ],
+  // },
 ];
 
 export const _sidebarHotKeyList = [
@@ -236,65 +234,128 @@ export const _sideBarContactList = [
   },
   {
     id: 2,
-    img: "./img/petsla.png",
-    name: "PetsLa",
+    img: "./img/leoasher.png",
+    name: "Leo Asher",
     link: "/",
     newNotices: 0,
   },
   {
     id: 3,
-    img: "./img/petsla.png",
-    name: "PetsLa",
+    img: "./img/D21.jpg",
+    name: "Ahihi",
     link: "/",
-    newNotices: 3,
+    newNotices: 0,
   },
   {
     id: 4,
-    img: "./img/petsla.png",
-    name: "PetsLa",
+    img: "./img/1.jpg",
+    name: "Người yêu 1",
     link: "/",
-    newNotices: 10,
+    newNotices: 0,
   },
   {
     id: 5,
-    img: "./img/petsla.png",
-    name: "PetsLa",
+    img: "./img/2.jpg",
+    name: "Người yêu 2",
     link: "/",
-    newNotices: 9,
+    newNotices: 0,
   },
   {
     id: 6,
-    img: "./img/petsla.png",
-    name: "PetsLa",
+    img: "./img/3.jpg",
+    name: "Người yêu 3",
     link: "/",
     newNotices: 0,
   },
   {
     id: 7,
-    img: "./img/petsla.png",
-    name: "PetsLa",
+    img: "./img/4.jpg",
+    name: "Người yêu 4",
     link: "/",
     newNotices: 0,
   },
   {
     id: 8,
-    img: "./img/petsla.png",
-    name: "PetsLa",
+    img: "./img/5.jpg",
+    name: "Người yêu 5",
     link: "/",
-    newNotices: 3,
+    newNotices: 0,
   },
   {
     id: 9,
-    img: "./img/petsla.png",
-    name: "PetsLa",
+    img: "./img/6.jpg",
+    name: "Người yêu 6",
     link: "/",
-    newNotices: 3,
+    newNotices: 0,
   },
   {
     id: 10,
-    img: "./img/petsla.png",
-    name: "PetsLa",
+    img: "./img/7.jpg",
+    name: "Người yêu 7",
     link: "/",
-    newNotices: 3,
+    newNotices: 0,
+  },
+  {
+    id: 11,
+    img: "./img/8.jpg",
+    name: "Người yêu 8",
+    link: "/",
+    newNotices: 0,
+  },
+  {
+    id: 12,
+    img: "./img/9.jpg",
+    name: "Người yêu 9",
+    link: "/",
+    newNotices: 0,
+  },
+  {
+    id: 13,
+    img: "./img/10.jpg",
+    name: "Người yêu 10",
+    link: "/",
+    newNotices: 0,
+  },
+  {
+    id: 14,
+    img: "./img/11.jpg",
+    name: "Trùm cuối",
+    link: "/",
+    newNotices: 0,
+  },
+  {
+    id: 15,
+    img: "./img/2.jpg",
+    name: "Người yêu 2",
+    link: "/",
+    newNotices: 0,
+  },
+  {
+    id: 16,
+    img: "./img/3.jpg",
+    name: "Người yêu 3",
+    link: "/",
+    newNotices: 0,
+  },
+  {
+    id: 17,
+    img: "./img/4.jpg",
+    name: "Người yêu 4",
+    link: "/",
+    newNotices: 0,
+  },
+  {
+    id: 18,
+    img: "./img/5.jpg",
+    name: "Người yêu 5",
+    link: "/",
+    newNotices: 0,
+  },
+  {
+    id: 19,
+    img: "./img/6.jpg",
+    name: "Người yêu 6",
+    link: "/",
+    newNotices: 0,
   },
 ];

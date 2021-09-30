@@ -4,7 +4,7 @@ import PostItem from "../PostItem";
 
 const PostList = () => {
   // get posts context
-  const { posts, setPosts } = useContext(PostsContext);
+  const { posts, setPosts, calcTimeFormat } = useContext(PostsContext);
 
   const handleUpdatePost = (post) => {
     const tempPosts = [...posts];
@@ -32,6 +32,7 @@ const PostList = () => {
           post={post}
           handleUpdatePost={handleUpdatePost}
           handleDeletePost={handleDeletePost}
+          calcTimeFormat={calcTimeFormat}
         />
       ))}
     </div>

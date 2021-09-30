@@ -26,15 +26,15 @@ const ThemeContextProvider = (props) => {
   });
 
   useEffect(() => {
-    localStorage.setItem("Theme", JSON.stringify(theme));
-  }, [theme]);
-
-  useEffect(() => {
     let localTheme = localStorage.getItem("Theme");
-    if (localStorage) {
+    if (localTheme) {
       setTheme(JSON.parse(localTheme));
     }
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("Theme", JSON.stringify(theme));
+  }, [theme]);
 
   const toggleTheme = () => {
     let newTheme = { ...theme };

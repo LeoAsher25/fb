@@ -1,21 +1,17 @@
 import React, { useContext, useEffect, useRef } from "react";
-import { v4 as uuidv4 } from "uuid";
 
 import { ThemeContext } from "../../contexts/ThemeContextProvider";
+import CmtInputWrap from "../CmtInputBox";
 import CommentList from "../CommentList";
 import "./PostItem.scss";
 
 const PostItem = (props) => {
-  const { post, handleUpdatePost, handleDeletePost } = props;
+  const { post, handleUpdatePost, handleDeletePost, calcTimeFormat } = props;
 
   // get theme context
   const { theme } = useContext(ThemeContext);
   const { isLightTheme, lightTheme, darkTheme } = theme;
   const style = isLightTheme ? lightTheme : darkTheme;
-
-  const postCmtBox = useRef(null);
-  const postCmtInputRef = useRef(null);
-  const otherCmtWayRef = useRef(null);
 
   const seeMoreRef = useRef(null);
   const checkboxReactRef = useRef(null);
@@ -27,40 +23,6 @@ const PostItem = (props) => {
       total += post.reactions[key];
     }
     return total;
-  };
-
-  const handlePostCmtInputOnInput = () => {
-    if (postCmtInputRef.current.offsetHeight <= 20) {
-      postCmtBox.current.classList.remove("active");
-    }
-    if (postCmtInputRef.current.offsetHeight > 20) {
-      postCmtBox.current.classList.add("active");
-    }
-  };
-
-  const handlePostCmtInputOnKeyDown = (e) => {
-    if (!e.shiftKey && e.keyCode === 13) {
-      e.preventDefault();
-      if (postCmtInputRef.current.textContent.trim() === "") return;
-      const textCmt = postCmtInputRef.current.innerHTML.trim();
-      postCmtInputRef.current.innerHTML = "";
-      handlePostCmtInputOnInput();
-
-      const updatedPost = { ...post };
-      const newCmt = {
-        cmtID: uuidv4(),
-        viewer: {
-          ava: "./img/petsla.png",
-          username: "Leo Asher",
-        },
-        commentContent: textCmt,
-        publishedTime: Date.now(),
-      };
-
-      updatedPost.comments = [...updatedPost.comments, newCmt];
-
-      handleUpdatePost(updatedPost);
-    }
   };
 
   const handleLikeBtnClick = () => {
@@ -88,8 +50,14 @@ const PostItem = (props) => {
   };
 
   const handleSeeMoreOnBlur = () => {
-    console.log("blur");
     seeMoreRef.current.classList.remove("active");
+  };
+
+  const handleUpdateCmt = (cmtList) => {
+    const updatedPost = { ...post };
+    updatedPost.comments = cmtList;
+    handleUpdatePost(updatedPost);
+    console.log("add");
   };
 
   useEffect(() => {
@@ -126,7 +94,8 @@ const PostItem = (props) => {
               {post.author.name}
             </a>
             <a href="/" className="post-published-time">
-              {post.publishedTime}
+              {/* {post.publishedTime} */}
+              {calcTimeFormat(post.publishedTime, Date.now())}
             </a>
           </div>
         </div>
@@ -252,7 +221,7 @@ const PostItem = (props) => {
             <div
               className="btn__sub-wrap-item"
               onClick={() => {
-                postCmtInputRef.current.focus();
+                // postCmtInputRef.current.focus();
               }}
             >
               <i></i>
@@ -273,60 +242,20 @@ const PostItem = (props) => {
         </div>
 
         <div className="comment-list__wrap">
-          <CommentList comments={post.comments} style={style} />
+          <CommentList
+            comments={post.comments}
+            style={style}
+            handleUpdateCmt={handleUpdateCmt}
+            calcTimeFormat={calcTimeFormat}
+          />
         </div>
 
         <div className="post-footer-cmt__wrap">
-          <label htmlFor="post-cmt-input" className="user-cmt">
-            <img src={post.user.ava} alt="" />
-          </label>
-
-          <div
-            className="post-cmt-box"
-            ref={postCmtBox}
-            style={{ backgroundColor: style.upPostInputBox }}
-            onClick={() => postCmtInputRef.current.focus()}
-          >
-            <label
-              onClick={() => postCmtInputRef.current.focus()}
-              className="post-cmt-input"
-              id="post-cmt-input"
-            >
-              <p
-                ref={postCmtInputRef}
-                className="cmt-text"
-                contentEditable="true"
-                data-text="Write a public comment..."
-                onInput={(e) => handlePostCmtInputOnInput(e)}
-                onKeyDown={(e) => handlePostCmtInputOnKeyDown(e)}
-              ></p>
-            </label>
-
-            <ul ref={otherCmtWayRef} className="other-cmt-way">
-              <li className="other-cmt-way-item">
-                <div
-                  className="bg"
-                  style={{ backgroundColor: style.borderColor }}
-                ></div>
-                <i
-                  style={{
-                    backgroundImage:
-                      "url('https://static.xx.fbcdn.net/rsrc.php/v3/yB/r/Y_WzR6jNFzU.png')",
-                    backgroundPosition: "0 -387px",
-                  }}
-                ></i>
-                <div
-                  className="title"
-                  style={{
-                    backgroundColor: style.color,
-                    color: style.bodyBgColor,
-                  }}
-                >
-                  Attach a photo or video
-                </div>
-              </li>
-            </ul>
-          </div>
+          <CmtInputWrap
+            post={post}
+            style={style}
+            handleUpdatePost={handleUpdatePost}
+          />
         </div>
       </div>
     </div>

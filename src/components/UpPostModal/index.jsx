@@ -132,7 +132,7 @@ const UpPostModal = (props) => {
       publishedTime: Date.now(),
       content: {
         text: postTextContent,
-        media: profileImg,
+        media: profileImg.toString(),
       },
       user: {
         ava: "./img/petsla.png",
@@ -168,7 +168,8 @@ const UpPostModal = (props) => {
       setPreviewIsOpen(true);
       textInputRef.current.classList.add("active");
       uploadImgWrapRef.current.style.display = "block";
-      textContentRef.current.style.minHeight = "3rem";
+      textContentRef.current.style.minHeight = "2.5rem";
+      textContentRef.current.style.paddingBottom = "0rem";
     };
   }, []);
 
@@ -181,6 +182,13 @@ const UpPostModal = (props) => {
         color: style.color,
       }}
     >
+      <input
+        ref={themeCheckboxRef}
+        type="checkbox"
+        name="themeCheckbox"
+        id="theme-checkbox"
+        hidden
+      />
       <div className="up-post-modal__wrap">
         <div
           className="modal__header"
@@ -220,97 +228,91 @@ const UpPostModal = (props) => {
             </div>
           </div>
           {/* end of modal-user */}
-          <div className="modal-content">
-            <label
-              ref={textContentRef}
-              onClick={() => {
-                textInputRef.current.focus();
-              }}
-              className="text-content"
-            >
-              <p
-                ref={textInputRef}
-                className="text-input"
-                contentEditable="true"
-                data-text="What's on your mind, bro?"
-                onInput={() => textInputOnInput()}
-              ></p>
-            </label>
-
-            <div className="emotion-content">
-              <i className="bi bi-emoji-smile"></i>
-            </div>
-          </div>
-          {/* end of modal-content  */}
-
-          <div
-            ref={uploadImgWrapRef}
-            className="upload-img-wrap"
-            style={{ borderColor: style.borderColor }}
-            onDragEnter={(e) => {
-              e.stopPropagation();
-              e.preventDefault();
-            }}
-            onDragOver={(e) => {
-              e.stopPropagation();
-              e.preventDefault();
-            }}
-            onDrop={(e) => {
-              e.stopPropagation();
-              e.preventDefault();
-
-              const dt = e.dataTransfer;
-              const files = dt.files;
-
-              setProfileImg(URL.createObjectURL(files[0]));
-            }}
-          >
-            <div
-              className="preview-close"
-              onClick={() => handlePreviewCloseOnClick()}
-              style={{
-                backgroundColor: style.topnavBgColor,
-                borderColor: style.borderColor,
-              }}
-            >
-              <i className="bi bi-x-lg"></i>
-            </div>
-
-            <input
-              ref={themeCheckboxRef}
-              type="checkbox"
-              name="themeCheckbox"
-              id="theme-checkbox"
-              hidden
-            />
-
-            <div
-              className="upload-preview"
-              style={{ backgroundColor: style.upPostInputBox }}
-            >
-              <input
-                type="file"
-                multiple
-                // accept="image/*"
-                name="image-upload"
-                id="input"
-                onChange={(e) => handleUploadImg(e)}
-                hidden
-              />
-              <label htmlFor="input" className="preview-icon">
-                <div className="bg"></div>
-                <i></i>
+          <div className="modal__body__wrap">
+            <div className="modal-content">
+              <label
+                ref={textContentRef}
+                onClick={() => {
+                  textInputRef.current.focus();
+                }}
+                className="text-content"
+              >
+                <p
+                  ref={textInputRef}
+                  className="text-input"
+                  contentEditable="true"
+                  data-text="What's on your mind, bro?"
+                  onInput={() => textInputOnInput()}
+                ></p>
               </label>
 
-              <div className="preview-title">
-                <span>Add Photos/Videos</span>
+              <div className="emotion-content">
+                <i className="bi bi-emoji-smile"></i>
               </div>
             </div>
-            <div className="preview-img">
-              <img src={profileImg} alt="" />
+            {/* end of modal-content  */}
+
+            <div
+              ref={uploadImgWrapRef}
+              className="upload-img-wrap"
+              style={{ borderColor: style.borderColor }}
+              onDragEnter={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+              }}
+              onDragOver={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+              }}
+              onDrop={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+
+                const dt = e.dataTransfer;
+                const files = dt.files;
+
+                setProfileImg(URL.createObjectURL(files[0]));
+              }}
+            >
+              <div
+                className="preview-close"
+                onClick={() => handlePreviewCloseOnClick()}
+                style={{
+                  backgroundColor: style.topnavBgColor,
+                  borderColor: style.borderColor,
+                }}
+              >
+                <i className="bi bi-x-lg"></i>
+              </div>
+
+              <div
+                className="upload-preview"
+                style={{ backgroundColor: style.upPostInputBox }}
+              >
+                <input
+                  type="file"
+                  multiple
+                  // accept="image/*"
+                  name="image-upload"
+                  id="input"
+                  onChange={(e) => handleUploadImg(e)}
+                  hidden
+                />
+                <label htmlFor="input" className="preview-icon">
+                  <div className="bg"></div>
+                  <i></i>
+                </label>
+
+                <div className="preview-title">
+                  <span>Add Photos/Videos</span>
+                </div>
+              </div>
+              <div className="preview-img">
+                <img src={profileImg} alt="" />
+              </div>
             </div>
+            {/**end of upload-img--wrap */}
           </div>
-          {/**end of upload-img--wrap */}
 
           <div
             className="type-of-upping"
@@ -357,6 +359,9 @@ const UpPostModal = (props) => {
               </div>
             </div>
           </div>
+        </div>
+
+        <div className="modal__footer">
           <div
             className="btn post-btn"
             ref={postBtnRef}

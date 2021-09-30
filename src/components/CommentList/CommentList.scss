@@ -1,3 +1,5 @@
+@import "../../variable";
+
 .cmt-list {
   .cmt-item {
     position: relative;
@@ -16,7 +18,7 @@
           border-radius: 50%;
         }
       }
-      .cmt-text {
+      .cmt-content {
         flex: 1;
 
         user-select: text;
@@ -26,7 +28,7 @@
           display: flex;
           align-items: center;
 
-          .cmt-content {
+          .cmt-content-text {
             padding: 0.6rem 1.6rem 1rem;
             border-radius: 1.8rem;
 
@@ -43,6 +45,11 @@
               span {
                 font-size: 1.5rem;
               }
+
+              a {
+                text-decoration: underline;
+                color: $blue-color;
+              }
             }
           }
 
@@ -52,12 +59,15 @@
 
             width: 3.2rem;
             height: 3.2rem;
+            min-width: 3.2rem;
+
             line-height: 3.2rem;
             text-align: center;
 
             cursor: pointer;
             transition: 0.1s;
 
+            margin-left: 1rem;
             .cmt-see-more-icon {
               position: relative;
 
@@ -81,6 +91,7 @@
 
               width: 20rem;
               padding: 0.6rem;
+              outline: none;
 
               list-style: none;
               top: 120%;
@@ -90,6 +101,7 @@
 
               border-radius: 0.5rem;
               box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+              display: none;
 
               .see-more-item {
                 padding: 0.8rem;
@@ -113,6 +125,15 @@
                   opacity: 0.9;
                 }
               }
+
+              &.active {
+                display: block;
+              }
+
+              @media (max-width: 768px) {
+                right: 0;
+                transform: unset;
+              }
             }
           }
 
@@ -124,7 +145,17 @@
             }
           }
         }
+        .cmt-media {
+          max-width: 20rem;
+          max-height: 20rem;
+          overflow: hidden;
+          border-radius: 1.2rem;
+          margin-bottom: 0.2rem;
 
+          img {
+            width: 100%;
+          }
+        }
         .cmt-react {
           display: flex;
           margin: 0rem 1.4rem 0.4rem;

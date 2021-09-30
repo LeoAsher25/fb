@@ -19,8 +19,11 @@ const SideBarItem = (props) => {
           style={{ backgroundColor: style.bgColorGray }}
         ></div>
         <div className="item-content" style={{ color: style.color }}>
-          <div className="item-img">
-            <img src={item.img} alt="" />
+          <div
+            className="item-img"
+            style={{ backgroundImage: `url("${item.img}")` }}
+          >
+            {/* <img src={item.img} alt="" /> */}
           </div>
 
           <div className="item-desc">
