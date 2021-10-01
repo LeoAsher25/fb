@@ -57,6 +57,15 @@ const HotkeyItem = (props) => {
           <div className="hotkeys-icon">
             {hotkey.iconR}
             {hotkey.iconS}
+
+            {hotkey.notices > 0 ? (
+              <span className="hotkey-notice">
+                {hotkey.notices < 10 ? hotkey.notices : "9+"}
+              </span>
+            ) : (
+              ""
+            )}
+            
           </div>
         </Link>
       </label>

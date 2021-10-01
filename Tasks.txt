@@ -1,0 +1,11 @@
+1) Làm sao để khi toggle button bookmarks, i will return the former pages.
+
+2) Sau khi chọn 1 ảnh, click X để bỏ, sau đó chọn lại đúng ảnh đó, thì không thay đổi state profileImg
+
+3) Tại sao khi up 1 ảnh, reload -> vẫn bth, 
+  nhưng khi chuyển sang page khác, reload->về homepage
+  or Ctrl F5 
+  => mất ảnh 
+  -kiểm tra link ảnh thì bị lỗi)
+  -nếu dùng URL.createObjectUrl thì sẽ bị như thế, còn dùng reader.result thì không
+  -nhưng nếu dùng reader.result thì link nó quá dài, không thế lưu ở localStorage được

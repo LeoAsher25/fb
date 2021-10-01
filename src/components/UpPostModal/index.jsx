@@ -100,9 +100,11 @@ const UpPostModal = (props) => {
     // reader.onload = () => {
     //   if (reader.readyState == 2) {
     //     setProfileImg(reader.result);
+    //     console.log(reader.result);
     //   }
     // };
     setProfileImg(URL.createObjectURL(e.target.files[0]));
+    URL.revokeObjectURL(e.target.files[0]);
     postBtnRef.current.classList.add("active");
   };
 
@@ -270,8 +272,9 @@ const UpPostModal = (props) => {
 
                 const dt = e.dataTransfer;
                 const files = dt.files;
-
                 setProfileImg(URL.createObjectURL(files[0]));
+
+                postBtnRef.current.classList.add("active");
               }}
             >
               <div

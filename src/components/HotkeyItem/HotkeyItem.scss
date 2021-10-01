@@ -8,6 +8,8 @@
   align-items: center;
   // border-bottom: 0.3rem solid #1877f2;
 
+  user-select: none;
+
   & + .hotkeys-item {
     margin-left: 0.8rem;
   }
@@ -25,10 +27,15 @@
   }
 
   .hotkeys-link {
-    display: block;
     width: 100%;
     height: 4.8rem;
     position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    // display: block;
 
     .bg-hotkey-item {
       position: absolute;
@@ -49,20 +56,38 @@
 
     .hotkeys-icon {
       position: relative;
-      width: 100%;
-      height: 100%;
 
       display: flex;
       align-items: center;
       justify-content: center;
+      // background-color: red;
 
-      svg:first-child {
+      svg:first-of-type {
         display: block;
         opacity: 0.7;
       }
 
-      svg:nth-child(2) {
+      svg:nth-of-type(2) {
         display: none;
+      }
+
+      .hotkey-notice {
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(65%, -50%);
+
+        width: 2.6rem;
+        height: 1.9rem;
+        border-radius: 1rem;
+        line-height: 1.8rem;
+
+        font-size: 1.3rem;
+        font-weight: 600;
+        text-align: center;
+
+        color: white;
+        background-color: #f02849;
       }
     }
     // end of hotkeys-icon
@@ -89,7 +114,7 @@
     }
 
     .hotkeys-icon {
-      svg:first-child {
+      svg:first-of-type {
         display: none;
       }
 

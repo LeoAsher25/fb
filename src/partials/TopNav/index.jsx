@@ -60,6 +60,7 @@ const TopNav = () => {
       ),
       title: `Home`,
       linkTo: "/",
+      notices: 0,
     },
     {
       id: 2,
@@ -87,6 +88,7 @@ const TopNav = () => {
       ),
       title: `Friends`,
       linkTo: "/friends",
+      notices: 2,
     },
     {
       id: 3,
@@ -114,6 +116,7 @@ const TopNav = () => {
       ),
       title: `Pages`,
       linkTo: "/pages",
+      notices: 9,
     },
     {
       id: 4,
@@ -141,6 +144,7 @@ const TopNav = () => {
       ),
       title: `Watch`,
       linkTo: "/Watch",
+      notices: 10,
     },
     {
       id: 5,
@@ -168,6 +172,7 @@ const TopNav = () => {
       ),
       title: `Groups`,
       linkTo: "/groups",
+      notices: 100,
     },
     {
       id: 6,
@@ -195,6 +200,7 @@ const TopNav = () => {
       ),
       title: `More`,
       linkTo: "/bookmarks",
+      notices: 0,
     },
   ];
 
