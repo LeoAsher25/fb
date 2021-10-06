@@ -48,13 +48,13 @@ const HomePage = () => {
       <div className="body">
         <div className="body-content">
           <UpPost />
-          {/* <PostList /> */}
+          <PostList />
         </div>
       </div>
 
       <div className="sidebar sidebar-right__wrap">
         <SideBarContextProvider>
-          {/* <SideBarRight /> */}
+          <SideBarRight />
         </SideBarContextProvider>
       </div>
     </div>

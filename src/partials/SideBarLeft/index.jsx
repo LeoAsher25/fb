@@ -17,9 +17,13 @@ const SideBarLeft = () => {
   return (
     <div
       className="sidebar-left"
-      style={{ backgroundColor: style.bodyBgColor }}
+      // style={{ backgroundColor: style.bodyBgColor }}
     >
       <SideBarItem style={style} item={sidebarContactList.at(0)} />
+      {sidebarHotKeyList.map((item) => (
+        <SideBarItem key={item.id} style={style} item={item} />
+      ))}
+
       {sidebarHotKeyList.map((item) => (
         <SideBarItem key={item.id} style={style} item={item} />
       ))}

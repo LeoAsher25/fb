@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { ThemeContext } from "../../contexts/ThemeContextProvider";
 import UpPostModal from "../UpPostModal";
 import "./UpPost.scss";
@@ -10,8 +10,37 @@ const UpPost = () => {
   const style = isLightTheme ? lightTheme : darkTheme;
 
   const UpPostHeader = useRef(null);
+  const upPostInputRef = useRef(null);
 
   const [upPostModalIsOpen, setUpPostModalIsOpen] = useState(false);
+  const [tempPost, setTempPost] = useState({
+    author: {
+      ava: "./img/petsla.png",
+      name: "Leo Asher",
+    },
+    publishedTime: Date.now(),
+    content: {
+      text: "",
+      media: "",
+    },
+    user: {
+      ava: "./img/petsla.png",
+      username: "Leo Asher",
+    },
+    isReacted: false,
+    reactions: {
+      like: 0,
+    },
+    comments: [],
+  });
+
+  useEffect(() => {
+    if (tempPost.content.text !== "") {
+      // let tmpText = tempPost.content.text.replace(/<br>/g, "&nbsp;");
+      // console.log("text ", tmpText);
+      // upPostInputRef.current.innerHTML = tmpText;
+    }
+  }, [tempPost]);
 
   return (
     <div
@@ -20,13 +49,11 @@ const UpPost = () => {
     >
       {upPostModalIsOpen ? (
         <>
-          <div
-            className="overlay"
-            onClick={() => {
-              setUpPostModalIsOpen(false);
-            }}
-          ></div>
-          <UpPostModal setUpPostModalIsOpen={setUpPostModalIsOpen} />
+          <UpPostModal
+            setUpPostModalIsOpen={setUpPostModalIsOpen}
+            tempPost={tempPost}
+            setTempPost={setTempPost}
+          />
         </>
       ) : (
         ""
@@ -44,7 +71,7 @@ const UpPost = () => {
             }}
             onClick={() => setUpPostModalIsOpen(true)}
           >
-            <span>What's on your mind, bro?</span>
+            <span ref={upPostInputRef}>What's on your mind, bro?</span>
           </div>
         </div>
         <div

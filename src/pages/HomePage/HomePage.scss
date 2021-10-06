@@ -1,11 +1,10 @@
 .home-page {
-  display: flex;
   position: relative;
+  display: flex;
   align-items: flex-start;
-  overflow: overlay;
 
   * {
-    pointer-events: none;
+    // pointer-events: none;
   }
 
   input[name="lightThemeCheckbox"]:checked {
@@ -80,16 +79,23 @@
   }
 
   .sidebar {
-    flex: 0.94;
+    flex: 1;
     max-width: 36rem;
-
     overflow: overlay;
     position: sticky;
-    // top: 5.6rem;
+    top: 5.6rem;
+
+    &.sidebar-left__wrap {
+      left: 0;
+    }
+
+    &.sidebar-right__wrap {
+      right: 0;
+    }
   }
 
   .body {
-    width: 100%;
+    // width: 100%;
     flex: 2;
     padding: 0 3.2rem;
     position: relative;

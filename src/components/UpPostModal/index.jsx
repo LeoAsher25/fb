@@ -9,7 +9,7 @@ import "./UpPostModal.scss";
 import { PostsContext } from "../../contexts/PostsContextProvider";
 
 const UpPostModal = (props) => {
-  const { setUpPostModalIsOpen } = props;
+  const { setUpPostModalIsOpen, tempPost, setTempPost } = props;
 
   const { theme } = useContext(ThemeContext);
   const { isLightTheme, lightTheme, darkTheme } = theme;
@@ -70,6 +70,32 @@ const UpPostModal = (props) => {
   const uploadImgWrapRef = useRef(null);
 
   const typeListRef = useRef([]);
+
+  const handleModalCloseOnClick = () => {
+    const postTextContent = textInputRef.current.innerHTML;
+    setTempPost({
+      author: {
+        ava: "./img/petsla.png",
+        name: "Leo Asher",
+      },
+      publishedTime: Date.now(),
+      content: {
+        text: postTextContent,
+        media: profileImg.toString(),
+      },
+      user: {
+        ava: "./img/petsla.png",
+        username: "Leo Asher",
+      },
+      isReacted: false,
+      reactions: {
+        like: 0,
+      },
+      comments: [],
+    });
+
+    setUpPostModalIsOpen(false);
+  };
 
   // handle when input text
   const textInputOnInput = () => {
@@ -148,8 +174,34 @@ const UpPostModal = (props) => {
     };
 
     handleAddPost(post);
+    setTempPost({
+      author: {
+        ava: "./img/petsla.png",
+        name: "Leo Asher",
+      },
+      publishedTime: Date.now(),
+      content: {
+        text: "",
+        media: "",
+      },
+      user: {
+        ava: "./img/petsla.png",
+        username: "Leo Asher",
+      },
+      isReacted: false,
+      reactions: {
+        like: 0,
+      },
+      comments: [],
+    });
     setUpPostModalIsOpen(false);
   };
+
+  useEffect(() => {
+    if (tempPost.content.text !== "") {
+      textInputRef.current.innerHTML = tempPost.content.text;
+    }
+  }, []);
 
   // handle check input checkbox themeCheckbox
   useEffect(() => {
@@ -176,205 +228,213 @@ const UpPostModal = (props) => {
   }, []);
 
   return (
-    <div
-      className="up-post-modal"
-      style={{
-        backgroundColor: style.topnavBgColor,
-        borderColor: style.borderColor,
-        color: style.color,
-      }}
-    >
-      <input
-        ref={themeCheckboxRef}
-        type="checkbox"
-        name="themeCheckbox"
-        id="theme-checkbox"
-        hidden
-      />
-      <div className="up-post-modal__wrap">
-        <div
-          className="modal__header"
-          style={{ borderColor: style.borderColor }}
-        >
-          <div className="modal-title">
-            <span>Create Post</span>
-          </div>
-
+    <>
+      <div
+        className="overlay"
+        onClick={() => {
+          handleModalCloseOnClick();
+        }}
+      ></div>
+      <div
+        className="up-post-modal"
+        style={{
+          backgroundColor: style.topnavBgColor,
+          borderColor: style.borderColor,
+          color: style.color,
+        }}
+      >
+        <input
+          ref={themeCheckboxRef}
+          type="checkbox"
+          name="themeCheckbox"
+          id="theme-checkbox"
+          hidden
+        />
+        <div className="up-post-modal__wrap">
           <div
-            className="modal-close"
-            onClick={() => setUpPostModalIsOpen(false)}
-            style={{ backgroundColor: style.bgColorGray }}
-          >
-            <i className="bi bi-x-lg"></i>
-          </div>
-        </div>
-
-        <div className="modal__body">
-          <div className="modal-user">
-            <Link to={user.link} className="user-link">
-              <div
-                className="bg"
-                style={{ backgroundColor: style.bgColorGray }}
-              ></div>
-              <div className="user-content" style={{ color: style.color }}>
-                <div className="user-img">
-                  <img src={user.img} alt="" />
-                </div>
-              </div>
-            </Link>
-
-            <div className="user-desc">
-              <div className="user-name">
-                <span>{user.name}</span>
-              </div>
-            </div>
-          </div>
-          {/* end of modal-user */}
-          <div className="modal__body__wrap">
-            <div className="modal-content">
-              <label
-                ref={textContentRef}
-                onClick={() => {
-                  textInputRef.current.focus();
-                }}
-                className="text-content"
-              >
-                <p
-                  ref={textInputRef}
-                  className="text-input"
-                  contentEditable="true"
-                  data-text="What's on your mind, bro?"
-                  onInput={() => textInputOnInput()}
-                ></p>
-              </label>
-
-              <div className="emotion-content">
-                <i className="bi bi-emoji-smile"></i>
-              </div>
-            </div>
-            {/* end of modal-content  */}
-
-            <div
-              ref={uploadImgWrapRef}
-              className="upload-img-wrap"
-              style={{ borderColor: style.borderColor }}
-              onDragEnter={(e) => {
-                e.stopPropagation();
-                e.preventDefault();
-              }}
-              onDragOver={(e) => {
-                e.stopPropagation();
-                e.preventDefault();
-              }}
-              onDrop={(e) => {
-                e.stopPropagation();
-                e.preventDefault();
-
-                const dt = e.dataTransfer;
-                const files = dt.files;
-                setProfileImg(URL.createObjectURL(files[0]));
-
-                postBtnRef.current.classList.add("active");
-              }}
-            >
-              <div
-                className="preview-close"
-                onClick={() => handlePreviewCloseOnClick()}
-                style={{
-                  backgroundColor: style.topnavBgColor,
-                  borderColor: style.borderColor,
-                }}
-              >
-                <i className="bi bi-x-lg"></i>
-              </div>
-
-              <div
-                className="upload-preview"
-                style={{ backgroundColor: style.upPostInputBox }}
-              >
-                <input
-                  type="file"
-                  multiple
-                  // accept="image/*"
-                  name="image-upload"
-                  id="input"
-                  onChange={(e) => handleUploadImg(e)}
-                  hidden
-                />
-                <label htmlFor="input" className="preview-icon">
-                  <div className="bg"></div>
-                  <i></i>
-                </label>
-
-                <div className="preview-title">
-                  <span>Add Photos/Videos</span>
-                </div>
-              </div>
-              <div className="preview-img">
-                <img src={profileImg} alt="" />
-              </div>
-            </div>
-            {/**end of upload-img--wrap */}
-          </div>
-
-          <div
-            className="type-of-upping"
+            className="modal__header"
             style={{ borderColor: style.borderColor }}
           >
-            <div className="title">
-              <span>Add to Your Post</span>
+            <div className="modal-title">
+              <span>Create Post</span>
             </div>
-            <div className="type-list">
-              {typeList.map((item, index) => (
+
+            <div
+              className="modal-close"
+              onClick={() => handleModalCloseOnClick()}
+              style={{ backgroundColor: style.bgColorGray }}
+            >
+              <i className="bi bi-x-lg"></i>
+            </div>
+          </div>
+
+          <div className="modal__body">
+            <div className="modal-user">
+              <Link to={user.link} className="user-link">
                 <div
-                  key={item.id}
-                  ref={(itemRef) => (typeListRef.current[index] = itemRef)}
-                  className="type-item"
+                  className="bg"
+                  style={{ backgroundColor: style.bgColorGray }}
+                ></div>
+                <div className="user-content" style={{ color: style.color }}>
+                  <div className="user-img">
+                    <img src={user.img} alt="" />
+                  </div>
+                </div>
+              </Link>
+
+              <div className="user-desc">
+                <div className="user-name">
+                  <span>{user.name}</span>
+                </div>
+              </div>
+            </div>
+            {/* end of modal-user */}
+            <div className="modal__body__wrap">
+              <div className="modal-content">
+                <label
+                  ref={textContentRef}
+                  onClick={() => {
+                    textInputRef.current.focus();
+                  }}
+                  className="text-content"
                 >
+                  <p
+                    ref={textInputRef}
+                    className="text-input"
+                    contentEditable="true"
+                    data-text="What's on your mind, bro?"
+                    onInput={() => textInputOnInput()}
+                  ></p>
+                </label>
+
+                <div className="emotion-content">
+                  <i className="bi bi-emoji-smile"></i>
+                </div>
+              </div>
+              {/* end of modal-content  */}
+
+              <div
+                ref={uploadImgWrapRef}
+                className="upload-img-wrap"
+                style={{ borderColor: style.borderColor }}
+                onDragEnter={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                }}
+                onDragOver={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                }}
+                onDrop={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+
+                  const dt = e.dataTransfer;
+                  const files = dt.files;
+                  setProfileImg(URL.createObjectURL(files[0]));
+
+                  postBtnRef.current.classList.add("active");
+                }}
+              >
+                <div
+                  className="preview-close"
+                  onClick={() => handlePreviewCloseOnClick()}
+                  style={{
+                    backgroundColor: style.topnavBgColor,
+                    borderColor: style.borderColor,
+                  }}
+                >
+                  <i className="bi bi-x-lg"></i>
+                </div>
+
+                <div
+                  className="upload-preview"
+                  style={{ backgroundColor: style.upPostInputBox }}
+                >
+                  <input
+                    type="file"
+                    multiple
+                    // accept="image/*"
+                    name="image-upload"
+                    id="input"
+                    onChange={(e) => handleUploadImg(e)}
+                    hidden
+                  />
+                  <label htmlFor="input" className="preview-icon">
+                    <div className="bg"></div>
+                    <i></i>
+                  </label>
+
+                  <div className="preview-title">
+                    <span>Add Photos/Videos</span>
+                  </div>
+                </div>
+                <div className="preview-img">
+                  <img src={profileImg} alt="" />
+                </div>
+              </div>
+              {/**end of upload-img--wrap */}
+            </div>
+
+            <div
+              className="type-of-upping"
+              style={{ borderColor: style.borderColor }}
+            >
+              <div className="title">
+                <span>Add to Your Post</span>
+              </div>
+              <div className="type-list">
+                {typeList.map((item, index) => (
+                  <div
+                    key={item.id}
+                    ref={(itemRef) => (typeListRef.current[index] = itemRef)}
+                    className="type-item"
+                  >
+                    <div
+                      className="bg"
+                      style={{ backgroundColor: style.upPostInputBox }}
+                    ></div>
+
+                    <div className="type-item__wrap">
+                      <div
+                        className="type-item-img"
+                        style={{
+                          backgroundImage: `url('${item.imgLink}')`,
+                          backgroundPosition: item.imgBgPosition,
+                        }}
+                      ></div>
+                    </div>
+                    <div className="type-item-title">{item.title}</div>
+                  </div>
+                ))}
+
+                <div className="type-item">
                   <div
                     className="bg"
                     style={{ backgroundColor: style.upPostInputBox }}
                   ></div>
-
                   <div className="type-item__wrap">
-                    <div
-                      className="type-item-img"
-                      style={{
-                        backgroundImage: `url('${item.imgLink}')`,
-                        backgroundPosition: item.imgBgPosition,
-                      }}
-                    ></div>
-                  </div>
-                  <div className="type-item-title">{item.title}</div>
-                </div>
-              ))}
-
-              <div className="type-item">
-                <div
-                  className="bg"
-                  style={{ backgroundColor: style.upPostInputBox }}
-                ></div>
-                <div className="type-item__wrap">
-                  <div className="type-item-img">
-                    <i className="fas fa-ellipsis-h"></i>
+                    <div className="type-item-img">
+                      <i className="fas fa-ellipsis-h"></i>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="modal__footer">
-          <div
-            className="btn post-btn"
-            ref={postBtnRef}
-            onClick={() => handlePostSubmit()}
-          >
-            Post
+          <div className="modal__footer">
+            <div
+              className="btn post-btn"
+              ref={postBtnRef}
+              onClick={() => handlePostSubmit()}
+            >
+              Post
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -1,13 +1,10 @@
 .sidebar-left {
-  padding-top: 1.6rem;
+  // padding-top: 1.6rem;
   height: 100vh;
 
   overflow: overlay;
 
   @media (max-width: 1100px) {
     height: unset;
-  }
-  * {
-    pointer-events: none;
   }
 }
