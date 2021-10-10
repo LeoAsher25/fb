@@ -23,7 +23,7 @@ function App() {
   return (
     <div className="app">
       <ThemeContextProvider>
-        <Router>
+        <Router basename="/fb">
           <TopNav />
 
           <Switch>
@@ -84,7 +84,7 @@ function App() {
             </Route>
 
             <Route path="/bookmarks">
-                <BookmarksPage />
+              <BookmarksPage />
             </Route>
 
             <Route exact path="/">

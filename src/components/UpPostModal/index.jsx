@@ -121,16 +121,10 @@ const UpPostModal = (props) => {
 
   // handle when upload image
   const handleUploadImg = (e) => {
-    // const reader = new FileReader();
-    // reader.readAsDataURL(e.target.files[0]);
-    // reader.onload = () => {
-    //   if (reader.readyState == 2) {
-    //     setProfileImg(reader.result);
-    //     console.log(reader.result);
-    //   }
-    // };
     setProfileImg(URL.createObjectURL(e.target.files[0]));
     URL.revokeObjectURL(e.target.files[0]);
+    e.target.value = "";
+
     postBtnRef.current.classList.add("active");
   };
 
