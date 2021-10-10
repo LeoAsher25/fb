@@ -12,16 +12,16 @@ const PostsContextProvider = (props) => {
     setPosts([post, ...posts]);
   };
 
-  // useEffect(() => {
-  //   const localPosts = localStorage.getItem("posts");
-  //   if (localPosts) {
-  //     setPosts([...JSON.parse(localPosts)]);
-  //   }
-  // }, []);
+  useEffect(() => {
+    const localPosts = localStorage.getItem("posts");
+    if (localPosts) {
+      setPosts([...JSON.parse(localPosts)]);
+    }
+  }, []);
 
-  // useEffect(() => {
-  //   localStorage.setItem("posts", JSON.stringify(posts));
-  // }, [posts]);
+  useEffect(() => {
+    localStorage.setItem("posts", JSON.stringify(posts));
+  }, [posts]);
 
   const calcTimeFormat = (time1, time2) => {
     let time = time2 - time1;
