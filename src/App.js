@@ -23,7 +23,7 @@ function App() {
   return (
     <div className="app">
       <ThemeContextProvider>
-        <Router basename="/fb">
+        <Router>
           <TopNav />
 
           <Switch>

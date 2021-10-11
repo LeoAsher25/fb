@@ -13,6 +13,7 @@ const UpPost = () => {
   const upPostInputRef = useRef(null);
 
   const [upPostModalIsOpen, setUpPostModalIsOpen] = useState(false);
+  const [upMediaIsTrue, setUpMediaIsTrue] = useState(false);
   const [tempPost, setTempPost] = useState({
     author: {
       ava: "./img/petsla.png",
@@ -34,6 +35,11 @@ const UpPost = () => {
     comments: [],
   });
 
+  const handleUpImgOnClick = () => {
+    setUpPostModalIsOpen(true);
+    setUpMediaIsTrue(true);
+  };
+
   useEffect(() => {
     if (tempPost.content.text !== "") {
       // let tmpText = tempPost.content.text.replace(/<br>/g, "&nbsp;");
@@ -52,6 +58,8 @@ const UpPost = () => {
           <UpPostModal
             setUpPostModalIsOpen={setUpPostModalIsOpen}
             tempPost={tempPost}
+            upMediaIsTrue={upMediaIsTrue}
+            setUpMediaIsTrue={setUpMediaIsTrue}
             setTempPost={setTempPost}
           />
         </>
@@ -88,7 +96,10 @@ const UpPost = () => {
             <span className="up-post__footer-item__text">Live Video</span>
           </div>
 
-          <div className="up-post__footer-item">
+          <div
+            className="up-post__footer-item"
+            onClick={() => handleUpImgOnClick()}
+          >
             <div
               className="bg"
               style={{ backgroundColor: style.upPostInputBox }}

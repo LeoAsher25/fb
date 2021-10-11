@@ -1,4 +1,6 @@
 import React, { useRef } from "react";
+import moment from "moment";
+
 import "./CommentList.scss";
 
 const CommentList = (props) => {
@@ -22,6 +24,7 @@ const CommentList = (props) => {
     handleUpdateCmt(updatedCmts);
     console.log("update");
   };
+  console.log("test", comments);
 
   return (
     <div className="cmt-list">
@@ -96,12 +99,23 @@ const CommentList = (props) => {
                     </div>
                   </div>
 
-                  {comment.commentContent.media !== "" ? (
+                  {comment.commentContent.media.link !== "" ? (
                     <div
                       className="cmt-media"
                       style={{ backgroundColor: style.topnavBgColor }}
                     >
-                      <img src={comment.commentContent.media} alt="" />
+                      {comment.commentContent.media.type.startsWith(
+                        "image/"
+                      ) ? (
+                        <img src={comment.commentContent.media.link} alt="" />
+                      ) : (
+                        <video width="100%" controls>
+                          <source
+                            src={comment.commentContent.media.link}
+                            type="video/mp4"
+                          />
+                        </video>
+                      )}
                     </div>
                   ) : (
                     ""
@@ -122,7 +136,8 @@ const CommentList = (props) => {
                     </div>
                     <div className="cmt-react-item cmt-published-time">
                       <span>
-                        {calcTimeFormat(comment.publishedTime, Date.now())}
+                        {/* {calcTimeFormat(comment.publishedTime, Date.now())} */}
+                        {moment.unix(comment.publishedTime / 1000).fromNow()}
                       </span>
                     </div>
                   </div>

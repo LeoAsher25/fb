@@ -9,7 +9,13 @@ import "./UpPostModal.scss";
 import { PostsContext } from "../../contexts/PostsContextProvider";
 
 const UpPostModal = (props) => {
-  const { setUpPostModalIsOpen, tempPost, setTempPost } = props;
+  const {
+    setUpPostModalIsOpen,
+    tempPost,
+    setTempPost,
+    upMediaIsTrue,
+    setUpMediaIsTrue,
+  } = props;
 
   const { theme } = useContext(ThemeContext);
   const { isLightTheme, lightTheme, darkTheme } = theme;
@@ -58,12 +64,16 @@ const UpPostModal = (props) => {
   ];
 
   //useState
-  const [profileImg, setProfileImg] = useState("");
+  const [profileImg, setProfileImg] = useState({
+    link: "",
+    type: "",
+  });
   const [previewIsOpen, setPreviewIsOpen] = useState(false);
 
   //declear useRef
   const textContentRef = useRef(null);
   const textInputRef = useRef(null);
+  const fileInputRef = useRef(null);
 
   const postBtnRef = useRef(null);
   const themeCheckboxRef = useRef(null);
@@ -81,7 +91,7 @@ const UpPostModal = (props) => {
       publishedTime: Date.now(),
       content: {
         text: postTextContent,
-        media: profileImg.toString(),
+        media: profileImg,
       },
       user: {
         ava: "./img/petsla.png",
@@ -95,6 +105,7 @@ const UpPostModal = (props) => {
     });
 
     setUpPostModalIsOpen(false);
+    setUpMediaIsTrue(false);
   };
 
   // handle when input text
@@ -121,7 +132,10 @@ const UpPostModal = (props) => {
 
   // handle when upload image
   const handleUploadImg = (e) => {
-    setProfileImg(URL.createObjectURL(e.target.files[0]));
+    setProfileImg({
+      link: URL.createObjectURL(e.target.files[0]),
+      type: e.target.files[0].type,
+    });
     URL.revokeObjectURL(e.target.files[0]);
     e.target.value = "";
 
@@ -132,7 +146,10 @@ const UpPostModal = (props) => {
 
   // handle when close preview
   const handlePreviewCloseOnClick = () => {
-    setProfileImg("");
+    setProfileImg({
+      link: "",
+      type: "",
+    });
     setPreviewIsOpen(false);
 
     textInputRef.current.classList.remove("active");
@@ -141,7 +158,10 @@ const UpPostModal = (props) => {
   };
 
   const handlePostSubmit = () => {
-    if (textInputRef.current.textContent.trim() === "" && profileImg === "")
+    if (
+      textInputRef.current.textContent.trim() === "" &&
+      profileImg.link === ""
+    )
       return;
     const postTextContent = textInputRef.current.innerHTML;
 
@@ -154,7 +174,7 @@ const UpPostModal = (props) => {
       publishedTime: Date.now(),
       content: {
         text: postTextContent,
-        media: profileImg.toString(),
+        media: profileImg,
       },
       user: {
         ava: "./img/petsla.png",
@@ -189,6 +209,7 @@ const UpPostModal = (props) => {
       comments: [],
     });
     setUpPostModalIsOpen(false);
+    setUpMediaIsTrue(false);
   };
 
   useEffect(() => {
@@ -197,6 +218,18 @@ const UpPostModal = (props) => {
     }
   }, []);
 
+  useEffect(() => {
+    // upMediaIsTrue
+    if (upMediaIsTrue) {
+      setPreviewIsOpen(true);
+      fileInputRef.current.click();
+      textInputRef.current.classList.add("active");
+      uploadImgWrapRef.current.style.display = "block";
+      textContentRef.current.style.minHeight = "2.5rem";
+      textContentRef.current.style.paddingBottom = "0rem";
+    }
+  }, [upMediaIsTrue]);
+
   // handle check input checkbox themeCheckbox
   useEffect(() => {
     themeCheckboxRef.current.checked = !isLightTheme;
@@ -204,7 +237,7 @@ const UpPostModal = (props) => {
 
   // hanlde when
   useEffect(() => {
-    if (profileImg.trim() !== "") {
+    if (profileImg.link.trim() !== "") {
       uploadImgWrapRef.current.classList.add("active");
     } else {
       uploadImgWrapRef.current.classList.remove("active");
@@ -220,6 +253,12 @@ const UpPostModal = (props) => {
       textContentRef.current.style.paddingBottom = "0rem";
     };
   }, []);
+
+  useEffect(() => {
+    typeListRef.current[0].style.backgroundColor = previewIsOpen
+      ? style.upPostInputBox
+      : "transparent";
+  }, [previewIsOpen]);
 
   return (
     <>
@@ -325,7 +364,10 @@ const UpPostModal = (props) => {
 
                   const dt = e.dataTransfer;
                   const files = dt.files;
-                  setProfileImg(URL.createObjectURL(files[0]));
+                  setProfileImg({
+                    link: URL.createObjectURL(files[0]),
+                    type: files[0].type,
+                  });
 
                   postBtnRef.current.classList.add("active");
                 }}
@@ -346,9 +388,10 @@ const UpPostModal = (props) => {
                   style={{ backgroundColor: style.upPostInputBox }}
                 >
                   <input
+                    ref={fileInputRef}
                     type="file"
                     multiple
-                    // accept="image/*"
+                    accept="image/*, video/*"
                     name="image-upload"
                     id="input"
                     onChange={(e) => handleUploadImg(e)}
@@ -363,9 +406,19 @@ const UpPostModal = (props) => {
                     <span>Add Photos/Videos</span>
                   </div>
                 </div>
-                <div className="preview-img">
-                  <img src={profileImg} alt="" />
-                </div>
+                {profileImg.link !== "" ? (
+                  <div className="preview-img">
+                    {profileImg.type.startsWith("image/") ? (
+                      <img src={profileImg.link} alt="" />
+                    ) : (
+                      <video width="100%" controls>
+                        <source src={profileImg.link} type="video/mp4" />
+                      </video>
+                    )}
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
               {/**end of upload-img--wrap */}
             </div>

@@ -1,10 +1,21 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-import "./CmtInputBox.scss";
+import "./CmtInputWrap.scss";
 
 const CmtInputWrap = (props) => {
-  const { post, handleUpdatePost, style } = props;
+  const {
+    post,
+    handleUpdatePost,
+    style,
+    postCmtInputIsFocus,
+    setPostCmtInputIsFocus,
+  } = props;
+
+  const [profileImg, setProfileImg] = useState({
+    link: "",
+    type: "",
+  });
 
   const postCmtBox = useRef(null);
   const otherCmtWayRef = useRef(null);
@@ -24,13 +35,16 @@ const CmtInputWrap = (props) => {
       e.preventDefault();
       if (
         postCmtInputRef.current.textContent.trim() === "" &&
-        profileImg.trim() === ""
+        profileImg.link.trim() === ""
       )
         return;
       const textCmt = postCmtInputRef.current.innerHTML.trim();
       postCmtInputRef.current.innerHTML = "";
-      const mediaCmt = profileImg.trim();
-      setProfileImg("");
+      const mediaCmt = profileImg;
+      setProfileImg({
+        link: "",
+        type: "",
+      });
       handlePostCmtInputOnInput();
 
       const updatedPost = { ...post };
@@ -53,11 +67,20 @@ const CmtInputWrap = (props) => {
     }
   };
 
-  const [profileImg, setProfileImg] = useState("");
-
   const handleUploadImg = (e) => {
-    setProfileImg(URL.createObjectURL(e.target.files[0]));
+    console.log("file cmt", e.target.files[0]);
+    setProfileImg({
+      link: URL.createObjectURL(e.target.files[0]),
+      type: e.target.files[0].type,
+    });
+    e.target.value = "";
   };
+
+  useEffect(() => {
+    postCmtInputIsFocus
+      ? postCmtInputRef.current.focus()
+      : postCmtInputRef.current.blur();
+  }, [postCmtInputIsFocus]);
 
   return (
     <div className="cmt-input-wrap">
@@ -84,6 +107,9 @@ const CmtInputWrap = (props) => {
               data-text="Write a public comment..."
               onInput={(e) => handlePostCmtInputOnInput(e)}
               onKeyDown={(e) => handlePostCmtInputOnKeyDown(e)}
+              onBlur={() => {
+                return setPostCmtInputIsFocus(false);
+              }}
             ></p>
           </label>
 
@@ -92,7 +118,7 @@ const CmtInputWrap = (props) => {
               <input
                 type="file"
                 multiple
-                // accept="image/*"
+                accept="image/*, video/*"
                 name="image-upload"
                 id="cmt-by-img"
                 onChange={(e) => handleUploadImg(e)}
@@ -125,13 +151,29 @@ const CmtInputWrap = (props) => {
         </div>
       </div>
 
-      {profileImg.trim() !== "" ? (
+      {profileImg.link.trim() !== "" ? (
         <div className="preview-img-wrap">
-          <div className="preview-img">
-            <img src={profileImg} alt="" />
-          </div>
+          {profileImg.type.startsWith("image/") ? (
+            <div className="preview-img">
+              <img src={profileImg.link} alt="" />
+            </div>
+          ) : (
+            <div className="preview-video">
+              <video width="100%" controls>
+                <source src={profileImg.link} type="video/mp4" />
+              </video>
+            </div>
+          )}
 
-          <div className="preview-close" onClick={() => setProfileImg("")}>
+          <div
+            className="preview-close"
+            onClick={() =>
+              setProfileImg({
+                link: "",
+                type: "",
+              })
+            }
+          >
             <div
               className="bg"
               style={{ backgroundColor: style.upPostInputBox }}
