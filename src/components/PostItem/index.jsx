@@ -67,6 +67,8 @@ const PostItem = (props) => {
     console.log("add");
   };
 
+  const handleEditPostOnClick = () => {};
+
   useEffect(() => {
     themeCheckboxRef.current.checked = !isLightTheme;
   }, [isLightTheme]);
@@ -154,6 +156,33 @@ const PostItem = (props) => {
                 <div className="content">
                   <div className="title">
                     <span>Move to trash</span>
+                  </div>
+                  <div className="desc">
+                    <span>Item in your trash are deleted after 30 days.</span>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li
+              className="see-more-item"
+              onClick={() => handleEditPostOnClick()}
+            >
+              <div
+                className="bg"
+                style={{ backgroundColor: style.upPostInputBox }}
+              ></div>
+              <div className="see-more-item__wrap">
+                <div className="icon">
+                  <i
+                    style={{
+                      backgroundImage:
+                        "url('https://static.xx.fbcdn.net/rsrc.php/v3/yA/r/iA32q0CEate.png')",
+                    }}
+                  ></i>
+                </div>
+                <div className="content">
+                  <div className="title">
+                    <span>Edit</span>
                   </div>
                   <div className="desc">
                     <span>Item in your trash are deleted after 30 days.</span>

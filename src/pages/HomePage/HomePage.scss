@@ -81,6 +81,8 @@
   .sidebar {
     flex: 1;
     max-width: 36rem;
+    width: 36rem;
+
     overflow: overlay;
     position: sticky;
     top: 5.6rem;
@@ -95,7 +97,6 @@
   }
 
   .body {
-    // width: 100%;
     flex: 2;
     padding: 0 3.2rem;
     position: relative;
@@ -103,13 +104,14 @@
     @media (max-width: 900px) {
       padding: 0;
     }
+
     display: flex;
     flex-direction: column;
     align-items: center;
 
     .body-content {
-      max-width: 60rem;
       width: 100%;
+      max-width: 68rem;
     }
   }
 

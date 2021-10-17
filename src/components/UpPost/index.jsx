@@ -42,9 +42,20 @@ const UpPost = () => {
 
   useEffect(() => {
     if (tempPost.content.text !== "") {
-      // let tmpText = tempPost.content.text.replace(/<br>/g, "&nbsp;");
-      // console.log("text ", tmpText);
-      // upPostInputRef.current.innerHTML = tmpText;
+      // const reg = "<div>";
+      // const rep = " ";
+      // const reg3 = "<\/div>"
+      // const reg2 = "<br>";
+      const reg = '/<div>|</div>|<br>/g';
+      let tmpText = tempPost.content.text;
+      let tmpText1 = tempPost.content.text
+        // .replace("<div>", " ")
+        .split(reg)
+        // .join("");
+      console.log("text ", tmpText);
+      console.log("text1", tmpText1);
+      console.log(reg)
+      upPostInputRef.current.innerHTML = tmpText;
     }
   }, [tempPost]);
 

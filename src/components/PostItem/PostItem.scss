@@ -156,6 +156,10 @@
   // end of .post-header
 
   .post-body {
+    * {
+      word-break: break-all;
+    }
+
     .post-content-text {
       padding: 0.4rem 1.6rem 0rem;
 

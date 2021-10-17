@@ -222,7 +222,7 @@ const UpPostModal = (props) => {
     // upMediaIsTrue
     if (upMediaIsTrue) {
       setPreviewIsOpen(true);
-      fileInputRef.current.click();
+      // fileInputRef.current.click();
       textInputRef.current.classList.add("active");
       uploadImgWrapRef.current.style.display = "block";
       textContentRef.current.style.minHeight = "2.5rem";

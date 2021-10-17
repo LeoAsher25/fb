@@ -12,6 +12,7 @@ import UpPost from "../../components/UpPost";
 
 import "./HomePage.scss";
 import SideBarRight from "../../partials/SideBarRight";
+import StoryList from "../../components/StoryList";
 
 const HomePage = () => {
   // declear theme context
@@ -47,6 +48,7 @@ const HomePage = () => {
 
       <div className="body">
         <div className="body-content">
+          <StoryList />
           <UpPost />
           <PostList />
         </div>
