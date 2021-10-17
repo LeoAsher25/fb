@@ -31,7 +31,7 @@ const StoryList = () => {
     //   isSeen: true,
     // },
     {
-      ava: "./img/ahihi.jpg",
+      ava: "./img/5.png",
       media: "./img/11.jpg",
       name: "Trùm",
       isSeen: false,
